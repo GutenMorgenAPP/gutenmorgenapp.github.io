@@ -160,6 +160,13 @@
   .screen.force-light{background:#F2F2F7;color:#000}
   .force-light .m-card{background:#fff}.force-light .m-soft{color:#6C6C70}.force-light .cupsun{color:#000}
   .force-light .notch{background:#000}.force-light .m-div{background:#E5E5EA}
+  /* Häufige Fragen: aufklappbar */
+  .faq{padding:0}
+  .faq summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--soft);font-weight:400;font-size:20px;line-height:1}
+  .faq[open] summary::after{content:"–"}
+  .faq p{padding:0 22px 18px;margin:0}
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -181,7 +188,7 @@
     <a class="brand" href="#start"><svg class="brandcup" data-cup="live" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,194,58)" d="M662.0 360.0 L660.7 379.6 L656.9 398.8 L650.6 417.4 L641.9 435.0 L631.0 451.3 L618.1 466.1 L603.3 479.0 L587.0 489.9 L569.4 498.6 L550.8 504.9 L531.6 508.7 L512.0 510.0 L492.4 508.7 L473.2 504.9 L454.6 498.6 L437.0 489.9 L420.7 479.0 L405.9 466.1 L393.0 451.3 L382.1 435.0 L373.4 417.4 L367.1 398.8 L363.3 379.6 L362.0 360.0 L363.3 340.4 L367.1 321.2 L373.4 302.6 L382.1 285.0 L393.0 268.7 L405.9 253.9 L420.7 241.0 L437.0 230.1 L454.6 221.4 L473.2 215.1 L492.4 211.3 L512.0 210.0 L531.6 211.3 L550.8 215.1 L569.4 221.4 L587.0 230.1 L603.3 241.0 L618.1 253.9 L631.0 268.7 L641.9 285.0 L650.6 302.6 L656.9 321.2 L660.7 340.4 L662.0 360.0 Z"/><path fill="none" stroke="rgb(255,194,58)" stroke-width="30" stroke-linecap="round" d="M512.0 165.0 L512.0 109.2 M626.6 202.2 L659.4 157.1 M697.5 299.7 L750.5 282.5 M697.5 420.3 L750.5 437.5 M326.5 420.3 L273.5 437.5 M326.5 299.7 L273.5 282.5 M397.4 202.2 L364.6 157.1"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg><span>Guten Morgen <span class="brandsub">– Dein Briefing</span></span></a>
     <nav>
       <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
-      <a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
+      <a href="#fragen">Fragen</a><a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
     </nav>
   </div>
 </header>
@@ -391,6 +398,23 @@
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
       <b>Kostenlos</b><span>Gemacht aus Freude am guten Morgen.</span>
     </div>
+  </div>
+</section>
+
+<!-- Häufige Fragen -->
+<section id="fragen" class="wrap">
+  <div class="kicker">Hilfe</div>
+  <h2>Häufige Fragen.</h2>
+  <p class="sub">Die ausführliche Anleitung steckt auch in der App: Zahnrad › „So funktioniert’s“.</p>
+  <div class="grid">
+    <details class="faq card"><summary>Wie richte ich das Widget ein?</summary><p>Auf dem Home-Bildschirm lange auf eine freie Stelle drücken, oben links „Bearbeiten“ und dann „Widget hinzufügen“ tippen, „Guten Morgen“ suchen und eine der drei Größen wählen.</p></details>
+    <details class="faq card"><summary>Wie blende ich Kacheln aus oder verschiebe sie?</summary><p>Lange auf eine Kachel drücken. Mit dem Minus blendest du sie aus, mit dem Plus oben holst du sie zurück. Halten und ziehen verschiebt sie innerhalb ihres Bereichs.</p></details>
+    <details class="faq card"><summary>Wie stelle ich die Morgen-Mitteilung ein?</summary><p>Zahnrad › „Neues Briefing ab“ legt die Uhrzeit fest, der Schalter darunter die Mitteilung. Sie fasst deinen Tag schon in einem Satz zusammen.</p></details>
+    <details class="faq card"><summary>Kann ich Siri nutzen?</summary><p>Ja: „Hey Siri, öffne Guten Morgen“. In der Kurzbefehle-App kannst du außerdem eine Automation anlegen, die das Briefing nach dem Wecker öffnet.</p></details>
+    <details class="faq card"><summary>Warum sehe ich keine Termine oder Geburtstage?</summary><p>Die App braucht dafür deine Freigabe. In den iPhone-Einstellungen unter Apps › Guten Morgen kannst du Kalender und Kontakte erlauben.</p></details>
+    <details class="faq card"><summary>Warum steht abends keine Sonne in der Tasse?</summary><p>Weil sie schon untergegangen ist – die Tasse folgt dem echten Tageslicht. Am nächsten Morgen geht sie wieder auf.</p></details>
+    <details class="faq card"><summary>Warum sind Nachrichten manchmal auf Englisch?</summary><p>Die App übersetzt auf dem iPhone mit Apples Übersetzung. Beim ersten Mal lädt das iPhone dafür kurz die Sprachen – danach geht es sofort.</p></details>
+    <details class="faq card"><summary>Kostet die App etwas oder sammelt sie Daten?</summary><p>Nein. Kostenlos, ohne Werbung, ohne Konto und ohne Tracking. Deine Daten bleiben auf deinem iPhone – Details im Datenschutz unten.</p></details>
   </div>
 </section>
 
