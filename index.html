@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guten Morgen – Dein Briefing fürs iPhone</title>
+<meta name="description" content="Guten Morgen: die ruhige iPhone-App für einen guten Start in den Tag – Wetter, Termine, gute Nachrichten und ein kluger Gedanke. Kostenlos, ohne Werbung, ohne Konto.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFF6E0'/%3E%3Ccircle cx='32' cy='26' r='9' fill='%23F2B53A'/%3E%3Cpath d='M16 36h32v4a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12z' fill='%233A4A5C'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#F2F2F7; --card:#FFFFFF; --text:#1C1C1E; --soft:#6C6C70; --line:#E3E3E8;
+    --accent:#3A6EA5; --sun:#E8A93A; --green:#3E9B7A; --red:#D9544D; --steel:#5A7A99;
+    --radius:20px; --max:1040px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#000000; --card:#1C1C1E; --text:#F2F2F7; --soft:#A1A1A6; --line:#2C2C2E; --accent:#7FA8D6; --steel:#8FA9C4; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  /* Kopfzeile */
+  header.top{position:sticky;top:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 85%,transparent);
+    backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
+  .brand svg{width:30px;height:30px}
+  nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+  img,svg{max-width:100%}
+  @media (max-width:360px){ .phone{width:100%} }
+  nav a{color:var(--soft);text-decoration:none;font-size:15px}
+  nav a:hover{color:var(--text)}
+  @media (max-width:720px){ nav{display:none} }
+  /* Bereiche */
+  section{padding:64px 0}
+  section.wrap{padding:64px 22px 8px}
+  h1{font-size:clamp(38px,6vw,60px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px}
+  h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.01em;margin:0 0 10px}
+  h3{font-size:19px;margin:0 0 6px}
+  .lead{font-size:clamp(18px,2.2vw,21px);color:var(--soft);max-width:34em}
+  .kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin-bottom:8px}
+  .sub{color:var(--soft);max-width:40em;margin:0 0 30px}
+  /* Kopfbereich */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  section.hero{padding-top:56px}
+  .hero>*{min-width:0}
+  h1,h2{overflow-wrap:break-word;hyphens:auto}
+  @media (max-width:860px){ .hero{grid-template-columns:1fr} }
+  .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1.5px solid var(--text);
+    color:var(--text);text-decoration:none;font-weight:600;font-size:16px;background:transparent}
+  .btn.soft{border-color:var(--line);color:var(--soft)}
+  .btn svg{width:18px;height:18px}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+  .pill{font-size:14px;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--card)}
+  /* Karten */
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:860px){ .g3,.g2{grid-template-columns:1fr} }
+  .card{background:var(--card);border-radius:var(--radius);padding:22px 22px 20px}
+  .card p{margin:0;color:var(--soft)}
+  .ic{width:26px;height:26px;margin-bottom:12px;color:var(--steel)}
+  .feat{display:flex;gap:14px;align-items:flex-start}
+  .feat .ic{flex:none;margin:2px 0 0}
+  /* iPhone-Ansicht (nachgebaut) */
+  .phones{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  .phone{width:300px;border-radius:44px;padding:12px;background:#1C1C1E;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+  .screen{border-radius:34px;overflow:hidden;background:#F2F2F7;color:#1C1C1E;padding:18px 14px 20px;font-size:13px;line-height:1.4;height:600px;position:relative}
+  .screen.dark{background:#000;color:#F2F2F7}
+  .screen .notch{width:96px;height:26px;border-radius:20px;background:#000;margin:-6px auto 14px}
+  .screen.dark .notch{background:#1C1C1E}
+  .greet{display:flex;align-items:flex-end;gap:8px;font-weight:700;font-size:24px;line-height:1.1;margin:4px 4px 12px}
+  .greet svg{width:36px;height:36px;flex:none;margin-bottom:-4px}
+  .t{background:#fff;border-radius:16px;padding:11px 12px;margin-bottom:9px}
+  .screen.dark .t{background:#1C1C1E}
+  .t .lab{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+  .t .lab svg{width:12px;height:12px}
+  .t b{font-size:14px}
+  .row{display:flex;gap:9px}.row .t{flex:1}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+  .chip{font-size:10.5px;border:1px solid #D9D9DE;border-radius:999px;padding:2px 7px;color:#6C6C70}
+  .screen.dark .chip{border-color:#3A3A3C;color:#A1A1A6}
+  .big{font-size:26px;font-weight:600;line-height:1}
+  .soft{color:#6C6C70}.screen.dark .soft{color:#A1A1A6}
+  .sec{font-weight:700;font-size:15px;margin:12px 4px 7px}
+  .note{font-size:14px;color:var(--soft);text-align:center;margin-top:18px}
+  /* Ruhe-Leiste */
+  .promise{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media (max-width:860px){ .promise{grid-template-columns:repeat(2,1fr)} }
+  .promise .card{text-align:center;padding:20px 14px}
+  .promise .ic{margin:0 auto 8px}
+  .promise b{display:block}
+  .promise span{font-size:14px;color:var(--soft)}
+  /* Rechtliches */
+  .legal{background:var(--card);border-radius:var(--radius);padding:26px 26px 18px}
+  .legal h3{margin-top:22px}
+  .legal h3:first-of-type{margin-top:6px}
+  .legal p,.legal li{color:var(--soft);font-size:16px}
+  .legal ul{padding-left:20px}
+  .stand{font-size:14px;color:var(--soft)}
+  footer{padding:30px 0 50px;color:var(--soft);font-size:14px;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  footer a{color:var(--soft)}
+  footer .sp{margin-left:auto}
+</style>
+</head>
+<body>
+
+<!-- Logo: Tasse mit aufgehender Sonne (wie im App-Icon) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 64 64">
+      <circle cx="32" cy="24" r="9" fill="#E8A93A"/>
+      <path d="M14 34h34v5a13 13 0 0 1-13 13h-8a13 13 0 0 1-13-13z" fill="currentColor"/>
+      <path d="M48 37h3a5 5 0 0 1 0 10h-4" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#start"><svg aria-hidden="true"><use href="#logo"/></svg>Guten Morgen</a>
+    <nav>
+      <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
+      <a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
+    </nav>
+  </div>
+</header>
+
+<main id="start">
+
+<!-- Kopfbereich -->
+<section class="wrap hero">
+  <div>
+    <div class="kicker">Die iPhone-App für den Morgen</div>
+    <h1>Guten Morgen.<br>Der Tag kann kommen.</h1>
+    <p class="lead">Wetter, Termine, ein kluger Gedanke und drei gute Nachrichten – ruhig zusammengestellt auf einem Blick. Damit der Morgen mit einem Lächeln beginnt, nicht mit Stress.</p>
+    <div class="btns">
+      <a class="btn" href="#kontakt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
+        Bald im App Store
+      </a>
+      <a class="btn soft" href="#funktionen">Was sie kann</a>
+    </div>
+    <div class="pills">
+      <span class="pill">Kostenlos</span><span class="pill">Ohne Werbung</span><span class="pill">Ohne Konto</span><span class="pill">Daten bleiben auf dem iPhone</span>
+    </div>
+  </div>
+
+  <!-- nachgebaute Ansicht der App (hell) -->
+  <div class="phones" aria-label="So sieht die App aus">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="greet">Guten Morgen,<br>Alex
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="22" r="9" fill="#E8A93A"/><path d="M14 34h34v5a13 13 0 0 1-13 13h-8a13 13 0 0 1-13-13z" fill="#3A4A5C"/></svg>
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#5A7A99">Heute auf einen Blick</div>
+        <b>Zwei Termine, trockenes Wetter – und genug Licht für einen Spaziergang am Mittag.</b>
+        <div class="chips"><span class="chip">Trocken · max. 6°</span><span class="chip">2 Termine ab 9:00</span><span class="chip">Licht bis 16:15</span></div>
+      </div>
+      <div class="row">
+        <div class="t"><div class="lab" style="color:#3A6EA5">Dienstag</div><span class="big">24</span><div class="soft">November</div></div>
+        <div class="t"><div class="lab" style="color:#3A6EA5">Wetter</div><span class="big">4°</span><div class="soft">Heiter · max. 6°</div></div>
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#3E9B7A">Fokus heute</div>
+        Erst die wichtigste Aufgabe, dann das Postfach – der Vormittag gehört dir.
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#5A7A99">Kleidung</div>
+        Warme Jacke, dazu ein leichter Schal · Reflektor an der Tasche – morgens ist es noch dunkel
+      </div>
+      <div class="sec">Dein Tag</div>
+      <div class="t">
+        <div class="lab" style="color:#D9544D">Kalender</div>
+        <b>09:00</b> Team-Runde<br><b>14:30</b> Zahnarzt
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#5A7A99">Zitat des Tages</div>
+        „Jeder Tag ist eine neue Chance.“ <span class="soft">– frei nach einem alten Gedanken</span>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- Warum -->
+<section id="warum" class="wrap">
+  <div class="kicker">Warum Guten Morgen</div>
+  <h2>Ein besserer Start in den Tag.</h2>
+  <p class="sub">Viele Apps wollen morgens deine Aufmerksamkeit. Guten Morgen will nur eins: dass du gut in den Tag kommst.</p>
+  <div class="grid g3">
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <h3>Positiv statt Nachrichtenflut</h3>
+      <p>Nur das, was dir hilft – und Nachrichten, die gute Laune machen. Keine Schlagzeilen, die den Kaffee kalt werden lassen.</p>
+    </div>
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <h3>Alles auf einen Blick</h3>
+      <p>Wetter, Termine, freie Tage und ein Satz, der deinen Tag zusammenfasst. Lesen statt suchen – auch mit einer Hand und halb wach.</p>
+    </div>
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+      <h3>Jeden Tag neu</h3>
+      <p>Zitate, Wissen und Überraschungen wiederholen sich zwei Jahre lang nicht. Morgen wartet garantiert etwas, das du heute noch nicht kanntest.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Funktionen -->
+<section id="funktionen" class="wrap">
+  <div class="kicker">Funktionen</div>
+  <h2>Was die App kann.</h2>
+  <p class="sub">Alles ist von Anfang an da – und du entscheidest, was du siehst. Einfach lange auf eine Kachel drücken, um sie auszublenden oder zu verschieben.</p>
+  <div class="grid g2">
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 16.5"/><path d="M6 19h11.5"/></svg>
+      <div><h3>Wetter, das mitdenkt</h3><p>Aktuelles Wetter für deinen Ort, ein freundlicher Wettertipp und ein Kleidungstipp, der zum Tag passt. Donnerstags und freitags der Blick aufs Wochenende.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+      <div><h3>Dein Tag und deine Woche</h3><p>Termine aus deinem iPhone-Kalender, „Gleich geht’s los“ kurz vor dem nächsten Termin, Geburtstage aus den Kontakten und ein Wochenblick.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div><h3>Heute auf einen Blick</h3><p>Ein einziger Satz, der Wetter, Termine und Tageslicht zusammenbringt – morgens bis 14 Uhr. Ab 19 Uhr schaut die Abend-Kachel schon auf morgen.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+      <div><h3>Countdowns</h3><p>Wie weit es bis zum Wochenende ist, wann es wieder heller wird, und welche Feiertage, Ferien und Feste bald kommen – passend zu deinem Bundesland.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg>
+      <div><h3>Rund um den Tag</h3><p>Kuriose Feiertage mit kleiner Challenge, „Heute vor … Jahren“, Saison-Tipps, Wissen zum Tag und ein Zitat mit kurzer Info, wer es gesagt hat.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      <div><h3>Gute Nachrichten</h3><p>Drei positive Meldungen aus aller Welt – auf Deutsch. Dazu „Schon gewusst?“, deine persönlichen Glückszahlen und eine Runde Hangman.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>
+      <div><h3>Kleine Überraschungen</h3><p>Ab und zu leuchtet eine Kachel golden: dahinter wartet ein Fakt, ein Rätsel oder ein Kompliment – nie nach festem Muster.</p></div>
+    </div>
+    <div class="card feat">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+      <div><h3>So, wie du es magst</h3><p>Hell, dunkel oder wie das iPhone, vier ruhige Hintergrundtöne, auf Wunsch ein zartes Muster. Widget in drei Größen, Morgen-Mitteilung und Siri: „Öffne Guten Morgen“.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Ansehen -->
+<section id="ansehen" class="wrap">
+  <div class="kicker">Ansehen</div>
+  <h2>Ruhig. Klar. Freundlich.</h2>
+  <p class="sub">Schlichte Kacheln im Stil von iOS, klare Symbole und viel Luft. Morgens hell, abends gern dunkel.</p>
+  <div class="phones">
+    <!-- dunkel, abends -->
+    <div class="phone"><div class="screen dark">
+      <div class="notch"></div>
+      <div class="greet">Guten Abend,<br>Alex
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="38" r="9" fill="#C9772E"/><path d="M14 34h34v5a13 13 0 0 1-13 13h-8a13 13 0 0 1-13-13z" fill="#8FA9C4"/></svg>
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#8FA9C4">Morgen</div>
+        <b>Morgen ohne Termine – du bestimmst den Takt.</b>
+        <div class="chips"><span class="chip">Sonnig · max. 8°</span><span class="chip">Ausschlafen erlaubt</span></div>
+      </div>
+      <div class="row">
+        <div class="t"><div class="lab" style="color:#7FA8D6">Wochenende</div><span class="big">92 %</span><div class="soft">fast geschafft</div></div>
+        <div class="t"><div class="lab" style="color:#E8A93A">Tageslicht</div><span class="big">8:01</span><div class="soft">Std. heute</div></div>
+      </div>
+      <div class="sec">Rund um den Tag</div>
+      <div class="t">
+        <div class="lab" style="color:#3E9B7A">Wissen zum Tag</div>
+        Warum ist Neuschnee so leise? Zwischen den Flocken steckt viel Luft – sie schluckt den Schall wie ein Teppich.
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#8FA9C4">Gute Nachrichten</div>
+        Ein Wald, der zurückkommt: Freiwillige pflanzen eine Million Bäume.
+      </div>
+      <div class="t">
+        <div class="lab" style="color:#8FA9C4">Hangman</div>
+        <span style="letter-spacing:.3em;font-weight:600">S _ N N _ N _ _ F G _ N G</span>
+      </div>
+    </div></div>
+  </div>
+  <p class="note">Nachgebaute Ansichten zur Veranschaulichung – in der App sehen die Inhalte jeden Tag anders aus.</p>
+</section>
+
+<!-- Versprechen -->
+<section class="wrap">
+  <div class="promise">
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+      <b>Keine Werbung</b><span>Nirgends. Nie.</span>
+    </div>
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M3 3l18 18"/></svg>
+      <b>Kein Konto</b><span>Einfach öffnen und loslegen.</span>
+    </div>
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      <b>Kein Tracking</b><span>Deine Daten bleiben auf dem iPhone.</span>
+    </div>
+    <div class="card">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      <b>Kostenlos</b><span>Gemacht aus Freude am guten Morgen.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Kontakt -->
+<section id="kontakt" class="wrap">
+  <div class="kicker">Kontakt</div>
+  <h2>Ideen, Lob oder ein Fehler?</h2>
+  <p class="sub">Jede Rückmeldung hilft, die App besser zu machen. In der App geht es am schnellsten: ganz unten auf das Herz oder auf meinen Namen tippen. Oder einfach eine Mail schreiben.</p>
+  <a class="btn" href="mailto:s.wedell@me.com?subject=Guten%20Morgen%20App">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    s.wedell@me.com
+  </a>
+</section>
+
+<!-- Impressum -->
+<section id="impressum" class="wrap">
+  <div class="kicker">Rechtliches</div>
+  <h2>Impressum</h2>
+  <div class="legal">
+    <h3>Angaben gemäß § 5 DDG</h3>
+    <p>Sebastian Wedell<br>
+      <!-- HIER die Anschrift eintragen, sobald die App im App Store ist (Straße Hausnummer, PLZ Ort) -->
+      E-Mail: <a href="mailto:s.wedell@me.com">s.wedell@me.com</a></p>
+    <h3>Verantwortlich für den Inhalt</h3>
+    <p>Sebastian Wedell (Anschrift wie oben)</p>
+    <h3>Haftung für Links</h3>
+    <p>Diese Seite und die App verweisen auf Inhalte anderer Anbieter (z. B. Nachrichten, Wikipedia, Wetter). Für deren Inhalte sind ausschließlich die jeweiligen Anbieter verantwortlich. Bei Hinweisen auf rechtswidrige Inhalte entferne ich entsprechende Verweise umgehend.</p>
+  </div>
+</section>
+
+<!-- Datenschutz -->
+<section id="datenschutz" class="wrap">
+  <h2>Datenschutz</h2>
+  <p class="stand">Stand: November 2026</p>
+  <div class="legal">
+    <h3>Kurz gesagt</h3>
+    <p>Guten Morgen braucht kein Konto, zeigt keine Werbung und verfolgt dich nicht. Was die App über dich weiß, bleibt auf deinem iPhone. Ich selbst erhalte keine Daten aus der App – außer du schreibst mir eine Mail.</p>
+
+    <h3>Verantwortlich</h3>
+    <p>Sebastian Wedell, E-Mail: <a href="mailto:s.wedell@me.com">s.wedell@me.com</a></p>
+
+    <h3>Was auf deinem iPhone bleibt</h3>
+    <ul>
+      <li><b>Deine Einstellungen</b> (Name, Ort, Bundesland, Briefing-Zeit, Darstellung, Kacheln) werden nur auf dem iPhone gespeichert.</li>
+      <li><b>Kalender, Kontakte (Geburtstage) und Schritte</b> liest die App nur mit deiner Freigabe und nur auf dem Gerät. Nichts davon wird übertragen.</li>
+      <li><b>Texte und Übersetzungen</b> entstehen auf dem iPhone selbst (Apple-Übersetzung und, falls verfügbar, Apple Intelligence auf dem Gerät).</li>
+      <li>Freigaben kannst du jederzeit in den iPhone-Einstellungen ändern oder zurücknehmen.</li>
+    </ul>
+
+    <h3>Welche Dienste die App abfragt</h3>
+    <p>Damit Inhalte aktuell sind, ruft die App öffentliche Informationen ab. Dabei wird – wie bei jedem Aufruf einer Webseite – technisch deine IP-Adresse an den jeweiligen Dienst übermittelt. Es werden keine Namen, Termine oder Kontakte gesendet.</p>
+    <ul>
+      <li><b>Wetter:</b> Open-Meteo.com – mit den (gerundeten) Koordinaten deines Ortes.</li>
+      <li><b>Ortsname:</b> bei eingeschaltetem Standort über die Ortsbestimmung von Apple.</li>
+      <li><b>Nachrichten:</b> öffentliche Nachrichten-Feeds (z. B. Squirrel News, Good News).</li>
+      <li><b>Wissen und „Heute vor … Jahren“:</b> Wikipedia.</li>
+      <li><b>Ferien und Feiertage:</b> öffentliche Ferienkalender für dein Bundesland.</li>
+    </ul>
+    <p>Rechtsgrundlage ist unser berechtigtes Interesse an einer funktionierenden App (Art. 6 Abs. 1 lit. f DSGVO) bzw. deine Einwilligung über die Freigaben des iPhones (Art. 6 Abs. 1 lit. a DSGVO).</p>
+
+    <h3>Mail an mich</h3>
+    <p>Schreibst du mir (zum Beispiel über das Herz in der App), verwende ich deine Adresse und Nachricht nur, um zu antworten, und lösche sie, wenn sie nicht mehr gebraucht wird.</p>
+
+    <h3>App Store und TestFlight</h3>
+    <p>Die App wird über Apple verteilt. Apple verarbeitet dabei eigene Daten (z. B. für Downloads und, wenn du zustimmst, Absturzberichte). Dafür gilt die Datenschutzerklärung von Apple.</p>
+
+    <h3>Diese Webseite</h3>
+    <p>Diese Seite verwendet keine Cookies, keine Analyse-Werkzeuge und keine eingebundenen fremden Inhalte. Der Anbieter, bei dem die Seite liegt, speichert beim Aufruf technisch notwendige Angaben (z. B. IP-Adresse, Zeitpunkt) in Server-Protokollen, um die Seite sicher bereitzustellen.</p>
+
+    <h3>Deine Rechte</h3>
+    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine Mail genügt. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren.</p>
+
+    <h3>Änderungen</h3>
+    <p>Ändert sich etwas an der App, passe ich diese Erklärung an. Es gilt die hier veröffentlichte Fassung.</p>
+
+    <h3>Summary in English</h3>
+    <p>Guten Morgen has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather from Open-Meteo, news feeds, Wikipedia, holiday calendars); your IP address is transmitted technically. Contact: s.wedell@me.com.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Sebastian Wedell · Guten Morgen</span>
+    <a href="#impressum">Impressum</a>
+    <a href="#datenschutz">Datenschutz</a>
+    <a href="mailto:s.wedell@me.com">Kontakt</a>
+    <span class="sp">Mit Freude in Niedersachsen gemacht.</span>
+  </div>
+</footer>
+
+</body>
+</html>
