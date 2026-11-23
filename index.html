@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guten Morgen – Dein Briefing fürs iPhone</title>
+<title>Guten Morgen – Dein Briefing</title>
 <meta name="description" content="Guten Morgen: die ruhige iPhone-App für einen guten Start in den Tag – Wetter, Termine, gute Nachrichten und ein kluger Gedanke. Kostenlos, ohne Werbung, ohne Konto.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFF6E0'/%3E%3Ccircle cx='32' cy='26' r='9' fill='%23F2B53A'/%3E%3Cpath d='M16 36h32v4a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12z' fill='%233A4A5C'/%3E%3C/svg%3E">
 <style>
@@ -27,7 +27,9 @@
     backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line)}
   header.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
-  .brand svg{width:30px;height:30px}
+  .brandsub{font-weight:500;color:var(--soft)}
+  @media (max-width:380px){ .brandsub{display:none} }
+  .brand .brandcup{width:22px;height:30px;color:var(--text)}
   nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   img,svg{max-width:100%}
   @media (max-width:360px){ .phone{width:100%} }
@@ -47,11 +49,12 @@
   .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
   section.hero{padding-top:56px}
   .hero>*{min-width:0}
-  h1,h2{overflow-wrap:break-word;hyphens:auto}
+  h1,h2{overflow-wrap:break-word}
   @media (max-width:860px){ .hero{grid-template-columns:1fr} }
   .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1.5px solid var(--text);
     color:var(--text);text-decoration:none;font-weight:600;font-size:16px;background:transparent}
+  .btn.badge{cursor:default;border-style:dashed;border-color:var(--soft);color:var(--soft)}
   .btn.soft{border-color:var(--line);color:var(--soft)}
   .btn svg{width:18px;height:18px}
   .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
@@ -69,24 +72,40 @@
   .phones{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
   .phone{width:300px;border-radius:44px;padding:12px;background:#1C1C1E;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
   @media (prefers-color-scheme: dark){ .phone{background:#2C2C2E;box-shadow:0 0 0 1px #3A3A3C} }
-  .screen{border-radius:34px;overflow:hidden;background:#F2F2F7;color:#1C1C1E;padding:18px 14px 20px;font-size:13px;line-height:1.4;height:600px;position:relative}
-  .screen.dark{background:#000;color:#F2F2F7}
-  .screen .notch{width:96px;height:26px;border-radius:20px;background:#000;margin:-6px auto 14px}
-  .screen.dark .notch{background:#1C1C1E}
-  .greet{display:flex;align-items:flex-end;gap:8px;font-weight:700;font-size:24px;line-height:1.1;margin:4px 4px 12px}
-  .greet svg{width:36px;height:36px;flex:none;margin-bottom:-4px}
-  .t{background:#fff;border-radius:16px;padding:11px 12px;margin-bottom:9px}
-  .screen.dark .t{background:#1C1C1E}
-  .t .lab{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:3px;display:flex;align-items:center;gap:5px}
-  .t .lab svg{width:12px;height:12px}
-  .t b{font-size:14px}
-  .row{display:flex;gap:9px}.row .t{flex:1}
-  .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
-  .chip{font-size:10.5px;border:1px solid #D9D9DE;border-radius:999px;padding:2px 7px;color:#6C6C70}
-  .screen.dark .chip{border-color:#3A3A3C;color:#A1A1A6}
-  .big{font-size:26px;font-weight:600;line-height:1}
-  .soft{color:#6C6C70}.screen.dark .soft{color:#A1A1A6}
-  .sec{font-weight:700;font-size:15px;margin:12px 4px 7px}
+  .screen{border-radius:34px;overflow:hidden;background:#F2F2F7;color:#000;padding:16px 11px 20px;height:620px;position:relative;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:11.2px;line-height:1.3}
+
+  .screen .notch{width:90px;height:24px;border-radius:20px;background:#000;margin:-4px auto 12px}
+
+  /* Nachbau der App im Maßstab 0,7 (Schriftgrößen wie in der App × 0,7) */
+  .m-title{display:flex;align-items:baseline;gap:4px;font-weight:700;font-size:21px;line-height:1.15;margin:4px 3px 8px}
+  .cupsun{width:24px;height:33px;flex:none;color:#000;align-self:flex-end;margin-bottom:1px}
+
+  .m-card{background:#fff;border-radius:15px;padding:10px;margin-bottom:7px}
+
+  .m-lab{font-size:10.5px;font-weight:600;margin-bottom:3px}
+  .m-head{font-family:ui-serif,"New York",Georgia,"Times New Roman",serif;font-size:12px;font-weight:500;line-height:1.3}
+  .m-chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+  .m-chip{font-size:9px;font-weight:500;border-radius:999px;padding:2px 5px;border:1px solid}
+  .m-row{display:flex;gap:7px}.m-row>.m-card{flex:1;min-width:0}
+  .m-day{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .m-day b{font-size:45px;line-height:1;font-weight:700;display:flex;align-items:baseline;gap:3px}
+  .m-ic{display:inline-block;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+  .m-soft{color:#6C6C70}
+  .m-sec{font-weight:700;font-size:15.4px;margin:10px 3px 6px}
+  .m-big{font-weight:700;line-height:1.05}
+  .m-li{display:flex;gap:5px}.m-li span:first-child{color:#8E8E93}
+  .m-div{height:1px;background:#E5E5EA;margin:6px 0}
+  .m-ring{width:24px;height:24px;border-radius:50%;background:conic-gradient(rgb(51,153,82) var(--p),rgba(142,142,147,.25) 0);
+    -webkit-mask:radial-gradient(circle,transparent 8.5px,#000 9px);mask:radial-gradient(circle,transparent 8.5px,#000 9px)}
+  @media (prefers-color-scheme: dark){
+.screen{background:#000;color:#fff}
+.screen .notch{background:#1C1C1E}
+.screen .cupsun{color:#fff}
+.screen .m-card{background:#1C1C1E}
+.screen .m-soft{color:#98989F}
+.screen .m-div{background:#38383A}
+  }
   .note{font-size:14px;color:var(--soft);text-align:center;margin-top:18px}
   /* Ruhe-Leiste */
   .promise{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -123,7 +142,7 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#start"><svg aria-hidden="true"><use href="#logo"/></svg>Guten Morgen</a>
+    <a class="brand" href="#start"><svg class="brandcup" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,194,58)" d="M662.0 360.0 L660.7 379.6 L656.9 398.8 L650.6 417.4 L641.9 435.0 L631.0 451.3 L618.1 466.1 L603.3 479.0 L587.0 489.9 L569.4 498.6 L550.8 504.9 L531.6 508.7 L512.0 510.0 L492.4 508.7 L473.2 504.9 L454.6 498.6 L437.0 489.9 L420.7 479.0 L405.9 466.1 L393.0 451.3 L382.1 435.0 L373.4 417.4 L367.1 398.8 L363.3 379.6 L362.0 360.0 L363.3 340.4 L367.1 321.2 L373.4 302.6 L382.1 285.0 L393.0 268.7 L405.9 253.9 L420.7 241.0 L437.0 230.1 L454.6 221.4 L473.2 215.1 L492.4 211.3 L512.0 210.0 L531.6 211.3 L550.8 215.1 L569.4 221.4 L587.0 230.1 L603.3 241.0 L618.1 253.9 L631.0 268.7 L641.9 285.0 L650.6 302.6 L656.9 321.2 L660.7 340.4 L662.0 360.0 Z"/><path fill="none" stroke="rgb(255,194,58)" stroke-width="30" stroke-linecap="round" d="M512.0 165.0 L512.0 109.2 M626.6 202.2 L659.4 157.1 M697.5 299.7 L750.5 282.5 M697.5 420.3 L750.5 437.5 M326.5 420.3 L273.5 437.5 M326.5 299.7 L273.5 282.5 M397.4 202.2 L364.6 157.1"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg><span>Guten Morgen <span class="brandsub">– Dein Briefing</span></span></a>
     <nav>
       <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
       <a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
@@ -136,14 +155,14 @@
 <!-- Kopfbereich -->
 <section class="wrap hero">
   <div>
-    <div class="kicker">Die iPhone-App für den Morgen</div>
-    <h1>Guten Morgen.<br>Der Tag kann kommen.</h1>
+    <div class="kicker">Die iPhone-App für dein Briefing am Morgen</div>
+    <h1>Guten Morgen,<br>der Tag kann kommen.</h1>
     <p class="lead">Wetter, Termine, ein kluger Gedanke und drei gute Nachrichten – ruhig zusammengestellt auf einem Blick. Damit der Morgen mit einem Lächeln beginnt, nicht mit Stress.</p>
     <div class="btns">
-      <a class="btn" href="#kontakt">
+      <span class="btn badge" aria-label="Bald im App Store">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
         Bald im App Store
-      </a>
+      </span>
       <a class="btn soft" href="#funktionen">Was sie kann</a>
     </div>
     <div class="pills">
@@ -155,34 +174,42 @@
   <div class="phones" aria-label="So sieht die App aus">
     <div class="phone"><div class="screen">
       <div class="notch"></div>
-      <div class="greet">Guten Morgen,<br>Alex
-        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="22" r="9" fill="#E8A93A"/><path d="M14 34h34v5a13 13 0 0 1-13 13h-8a13 13 0 0 1-13-13z" fill="#3A4A5C"/></svg>
+      <div class="m-title">Guten Morgen, Alex! <svg class="cupsun" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,212,98)" d="M379.3 560.0 L373.8 548.4 L369.3 536.4 L365.9 524.0 L363.5 511.3 L362.2 498.6 L362.1 485.7 L363.0 472.9 L365.0 460.2 L368.1 447.7 L372.2 435.6 L377.4 423.8 L383.5 412.5 L390.6 401.8 L398.6 391.8 L407.5 382.4 L417.0 373.9 L427.3 366.2 L438.2 359.4 L449.7 353.6 L461.6 348.7 L473.9 344.9 L486.4 342.2 L499.2 340.6 L512.0 340.0 L524.8 340.6 L537.6 342.2 L550.1 344.9 L562.4 348.7 L574.3 353.6 L585.8 359.4 L596.7 366.2 L607.0 373.9 L616.5 382.4 L625.4 391.8 L633.4 401.8 L640.5 412.5 L646.6 423.8 L651.8 435.6 L655.9 447.7 L659.0 460.2 L661.0 472.9 L661.9 485.7 L661.8 498.6 L660.5 511.3 L658.1 524.0 L654.7 536.4 L650.2 548.4 L644.7 560.0 Z"/><path fill="none" stroke="rgb(255,212,98)" stroke-width="30" stroke-linecap="round" d="M512.0 295.0 L512.0 267.1 M626.6 332.2 L643.0 309.7 M697.5 429.7 L724.0 421.1 M326.5 429.7 L300.0 421.1 M397.4 332.2 L381.0 309.7"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(94,92,230)">Heute auf einen Blick</div>
+        <div class="m-head">Zwei Termine, trockener Himmel – genug Raum für einen klaren Kopf.</div>
+        <div class="m-chips">
+          <span class="m-chip" style="color:rgb(51,122,230);border-color:rgba(51,122,230,.35)">Trocken · max. 6°</span>
+          <span class="m-chip" style="color:rgb(219,56,51);border-color:rgba(219,56,51,.3)">2 Termine ab 9:00</span>
+          <span class="m-chip" style="color:rgb(245,148,26);border-color:rgba(245,148,26,.4)">Licht bis 16:15</span>
+        </div>
       </div>
-      <div class="t">
-        <div class="lab" style="color:#5A7A99">Heute auf einen Blick</div>
-        <b>Zwei Termine, trockenes Wetter – und genug Licht für einen Spaziergang am Mittag.</b>
-        <div class="chips"><span class="chip">Trocken · max. 6°</span><span class="chip">2 Termine ab 9:00</span><span class="chip">Licht bis 16:15</span></div>
+      <div class="m-row">
+        <div class="m-card m-day">
+          <b>Di<i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIuNDAwMDAxIiBoZWlnaHQ9IjMyLjQwMDAwMSIgdmlld0JveD0iMCAwIDMyLjQwMDAwMSAzMi40MDAwMDEiPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwLTAiPgo8cGF0aCBjbGlwLXJ1bGU9Im5vbnplcm8iIGQ9Ik0gMCAyMSBMIDExIDIxIEwgMTEgMzEuODEyNSBMIDAgMzEuODEyNSBaIE0gMCAyMSAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwLTEiPgo8cGF0aCBjbGlwLXJ1bGU9Im5vbnplcm8iIGQ9Ik0gMTAgMCBMIDMxLjgxMjUgMCBMIDMxLjgxMjUgMjIgTCAxMCAyMiBaIE0gMTAgMCAiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcC0wKSI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMS45NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDQuNTc1Mzc2IDIzLjMyMjQ4MiBDIDIuMzIzNDk1IDI1LjIxNjI5IDEuNTc1NTIxIDMwLjgyMjEyIDEuNTc1NTIxIDMwLjgyMjEyIEMgMS41NzU1MjEgMzAuODIyMTIgNy4xODUzMyAzMC4wNzQxNDUgOS4wNzUxNTkgMjcuODIyMjY1IEMgMTAuMTQxNDIgMjYuNTY1MDMxIDEwLjEyNTUwNiAyNC42Mjc0NTkgOC45Mzk4ODcgMjMuNDYxNzMyIEMgNy43MzQzNzUgMjIuMzA3OTQyIDUuODUyNTAzIDIyLjI0ODI2MyA0LjU3NTM3NiAyMy4zMjI0ODIgWiBNIDQuNTc1Mzc2IDIzLjMyMjQ4MiAiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTgxODE4LCAwLCAwLCAwLjk4MTgxOCwgMCwgMCkiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcC0xKSI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMS45NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDE1LjgyMjg0NCAyMS4wNzQ1OCBMIDExLjMyMzA2MSAxNi41NzQ3OTcgQyAxMi4xMjY3MzYgMTQuNTA1OTMxIDEzLjEyOTM0IDEyLjUyMDYxNiAxNC4zMjI5MTYgMTAuNjQ2NzAxIEMgMTcuODc5Nzc0IDQuOTY5MjU2IDI0LjEyNjE1NyAxLjUzNTczNSAzMC44MjIxMiAxLjU3NTUyMSBDIDMwLjgyMjEyIDUuNjU3NTUyIDI5LjY1NjM5NCAxMi44MjI5ODkgMjEuODIyNTU0IDE4LjA3NDcyNSBDIDE5LjkyODc0NiAxOS4yNzIyNzkgMTcuOTIzNTM4IDIwLjI3ODg2MiAxNS44MjI4NDQgMjEuMDc0NTggWiBNIDE1LjgyMjg0NCAyMS4wNzQ1OCAiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTgxODE4LCAwLCAwLCAwLjk4MTgxOCwgMCwgMCkiLz4KPC9nPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEuOTUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSJyZ2IoMCUsIDAlLCAwJSkiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtbWl0ZXJsaW1pdD0iNCIgZD0iTSAxMS4zMjMwNjEgMTYuNTc0Nzk3IEwgMy44MjM0MjMgMTYuNTc0Nzk3IEMgMy44MjM0MjMgMTYuNTc0Nzk3IDQuNjQ2OTkxIDEyLjAzMTI1IDYuODIzMjc4IDEwLjU3NTA4NiBDIDkuMjU0MTk1IDguOTUxODIzIDE0LjMyMjkxNiAxMC41NzUwODYgMTQuMzIyOTE2IDEwLjU3NTA4NiAiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTgxODE4LCAwLCAwLCAwLjk4MTgxOCwgMCwgMCkiLz4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxLjk1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTUuODIyODQ0IDIxLjA3NDU4IEwgMTUuODIyODQ0IDI4LjU3NDIxOCBDIDE1LjgyMjg0NCAyOC41NzQyMTggMjAuMzcwMzcgMjcuNzUwNjUgMjEuODIyNTU0IDI1LjU3NDM2MyBDIDIzLjQ0NTgxOCAyMy4xNDM0NDUgMjEuODIyNTU0IDE4LjA3NDcyNSAyMS44MjI1NTQgMTguMDc0NzI1ICIgdHJhbnNmb3JtPSJtYXRyaXgoMC45ODE4MTgsIDAsIDAsIDAuOTgxODE4LCAwLCAwKSIvPgo8L3N2Zz4K);width:28px;height:28px;color:rgb(219,56,51)"></i></b>
+          <div class="m-soft" style="font-weight:600;font-size:12px;margin-top:4px">24. November</div>
+        </div>
+        <div class="m-card">
+          <div class="m-lab" style="color:rgb(51,122,230)">Nienhagen</div>
+          <div style="display:flex;align-items:center;justify-content:space-between"><span class="m-big" style="font-size:31px">4°</span><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gOSAxLjUgTCA5IDMgIi8+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMy42OTkyMTkgMy42OTkyMTkgTCA0Ljc1MzkwNiA0Ljc1MzkwNiAiLz4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSJyZ2IoMCUsIDAlLCAwJSkiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtbWl0ZXJsaW1pdD0iNCIgZD0iTSAxNSA5IEwgMTYuNSA5ICIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDE0LjMwMDc4MSAzLjY5OTIxOSBMIDEzLjI0NjA5NCA0Ljc1MzkwNiAiLz4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSJyZ2IoMCUsIDAlLCAwJSkiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtbWl0ZXJsaW1pdD0iNCIgZD0iTSAxMS45NjA5MzggOS40ODgyODEgQyAxMi4xNDg0MzggOC4zNDc2NTYgMTEuNjY0MDYyIDcuMTk5MjE5IDEwLjcxNDg0NCA2LjUzOTA2MiBDIDkuNzY1NjI1IDUuODc1IDguNTIzNDM4IDUuODIwMzEyIDcuNTE1NjI1IDYuMzkwNjI1ICIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDkuNzUgMTYuNSBMIDUuMjUgMTYuNSBDIDMuMjc3MzQ0IDE2LjUgMS42NDA2MjUgMTQuOTY4NzUgMS41MDc4MTIgMTMgQyAxLjM3ODkwNiAxMS4wMzEyNSAyLjc5Mjk2OSA5LjI5Njg3NSA0Ljc1IDkuMDM1MTU2IEMgNi43MDMxMjUgOC43Njk1MzEgOC41MzEyNSAxMC4wNjY0MDYgOC45MjU3ODEgMTIgTCA5Ljc1IDEyIEMgMTAuOTkyMTg4IDEyIDEyIDEzLjAwNzgxMiAxMiAxNC4yNSBDIDEyIDE1LjQ5MjE4OCAxMC45OTIxODggMTYuNSA5Ljc1IDE2LjUgWiBNIDkuNzUgMTYuNSAiLz4KPC9zdmc+Cg==);width:20px;height:20px;color:rgb(245,148,26)"></i></div>
+          <div style="font-weight:600;font-size:12px">Leicht bewölkt</div>
+          <div class="m-soft" style="font-size:10.5px">Höchst 6° · Tiefst 1°</div>
+        </div>
       </div>
-      <div class="row">
-        <div class="t"><div class="lab" style="color:#3A6EA5">Dienstag</div><span class="big">24</span><div class="soft">November</div></div>
-        <div class="t"><div class="lab" style="color:#3A6EA5">Wetter</div><span class="big">4°</span><div class="soft">Heiter · max. 6°</div></div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(148,92,214)">Fokus heute</div>
+        <div style="font-weight:600;font-size:11.2px">Erst das Wichtigste, dann das Postfach.</div>
+        <div class="m-soft" style="font-size:9.1px;margin-top:2px">Zwei Termine – der Vormittag bis 9 Uhr gehört dir.</div>
       </div>
-      <div class="t">
-        <div class="lab" style="color:#3E9B7A">Fokus heute</div>
-        Erst die wichtigste Aufgabe, dann das Postfach – der Vormittag gehört dir.
-      </div>
-      <div class="t">
-        <div class="lab" style="color:#5A7A99">Kleidung</div>
-        Warme Jacke, dazu ein leichter Schal · Reflektor an der Tasche – morgens ist es noch dunkel
-      </div>
-      <div class="sec">Dein Tag</div>
-      <div class="t">
-        <div class="lab" style="color:#D9544D">Kalender</div>
-        <b>09:00</b> Team-Runde<br><b>14:30</b> Zahnarzt
-      </div>
-      <div class="t">
-        <div class="lab" style="color:#5A7A99">Zitat des Tages</div>
-        „Jeder Tag ist eine neue Chance.“ <span class="soft">– frei nach einem alten Gedanken</span>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(92,168,224)">Wettertipp</div>
+        <div>Grau, aber trocken – der Himmel spart sich den Regen fürs Wochenende.</div>
+        <div class="m-div"></div>
+        <div class="m-lab" style="color:rgb(92,168,224)">Kleidungstipp</div>
+        <div>Gefühlt jetzt 1°, mittags 4°</div>
+        <div style="display:flex;gap:11px;margin:5px 0;color:rgb(82,115,158)"><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTMuNSA0LjUgTCAyMi41IDQuNSBMIDI0Ljc1IDkgTCAzMCAxMiBMIDMwIDMxLjUgTCAyMy4yNSAzMS41IEwgMjMuMjUgMTggTSAxMy41IDQuNSBMIDExLjI1IDkgTCA2IDEyIEwgNiAzMS41IEwgMTIuNzUgMzEuNSBMIDEyLjc1IDE4ICIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDEyLjc1IDMxLjUgTCAyMy4yNSAzMS41IE0gMTggMTAuNSBMIDE4IDMxLjUgTSAxMy41IDQuNSBDIDEzLjUgNy41IDE1LjQ0OTIxOSAxMC41IDE4IDEwLjUgQyAyMC41NTA3ODEgMTAuNSAyMi41IDcuNSAyMi41IDQuNSAiLz4KPC9zdmc+Cg==);width:17px;height:17px"></i><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gOSA1LjI1IEMgMTEuMzk4NDM4IDcuOTQ5MjE5IDE0LjU1MDc4MSA5LjMwMDc4MSAxOCA5LjMwMDc4MSBDIDIxLjQ0OTIxOSA5LjMwMDc4MSAyNC42MDE1NjIgNy45NDkyMTkgMjcgNS4yNSBMIDI3IDExLjI1IEMgMjQuNjAxNTYyIDEzLjk0OTIxOSAyMS40NDkyMTkgMTUuMzAwNzgxIDE4IDE1LjMwMDc4MSBDIDE0LjU1MDc4MSAxNS4zMDA3ODEgMTEuMzk4NDM4IDEzLjk0OTIxOSA5IDExLjI1IFogTSA5IDUuMjUgIi8+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTIuNzUgMTQuMzk4NDM4IEwgMTIuNzUgMzAuNzUgTCAxOCAzMC43NSBMIDE4IDE1LjMwMDc4MSAiLz4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSJyZ2IoMCUsIDAlLCAwJSkiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtbWl0ZXJsaW1pdD0iNCIgZD0iTSAxMi43NSAyNyBMIDE4IDI3ICIvPgo8L3N2Zz4K);width:17px;height:17px"></i></div>
+        <div class="m-li"><span>•</span><span style="font-weight:600">Warme Jacke, dazu ein leichter Schal</span></div>
+        <div class="m-li"><span>•</span><span class="m-soft">Reflektor an Jacke oder Tasche – morgens ist es noch dunkel</span></div>
       </div>
     </div></div>
   </div>
@@ -268,32 +295,36 @@
   <div>
   <div class="phones">
     <!-- dunkel, abends -->
-    <div class="phone"><div class="screen dark">
+    <div class="phone"><div class="screen">
       <div class="notch"></div>
-      <div class="greet">Guten Abend,<br>Alex
-        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="38" r="9" fill="#C9772E"/><path d="M14 34h34v5a13 13 0 0 1-13 13h-8a13 13 0 0 1-13-13z" fill="#8FA9C4"/></svg>
+      <div class="m-title">Guten Abend, Alex! <svg class="cupsun" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,150,44)" d="M366.1 560.0 L363.9 548.9 L362.5 537.7 L362.0 526.5 L362.3 515.2 L363.5 503.9 L365.5 492.8 L368.3 481.9 L372.0 471.2 L376.4 460.9 L381.6 450.8 L387.6 441.2 L394.2 432.1 L401.5 423.5 L409.5 415.5 L418.0 408.1 L427.0 401.4 L436.6 395.3 L446.5 390.0 L456.9 385.5 L467.5 381.7 L478.4 378.8 L489.5 376.7 L500.7 375.4 L512.0 375.0 L523.3 375.4 L534.5 376.7 L545.6 378.8 L556.5 381.7 L567.1 385.5 L577.5 390.0 L587.4 395.3 L597.0 401.4 L606.0 408.1 L614.5 415.5 L622.5 423.5 L629.8 432.1 L636.4 441.2 L642.4 450.8 L647.6 460.9 L652.0 471.2 L655.7 481.9 L658.5 492.8 L660.5 503.9 L661.7 515.2 L662.0 526.5 L661.5 537.7 L660.1 548.9 L657.9 560.0 Z"/><path fill="none" stroke="rgb(255,150,44)" stroke-width="30" stroke-linecap="round" d="M512.0 330.0 L512.0 289.7 M626.6 367.2 L650.3 334.6 M697.5 464.7 L735.8 452.3 M326.5 464.7 L288.2 452.3 M397.4 367.2 L373.7 334.6"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
+      <div class="m-sec">Countdowns</div>
+      <div class="m-row">
+        <div class="m-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="m-lab" style="color:rgb(51,153,82)">Wochenende</div><div class="m-ring" style="--p:38%"></div></div>
+          <div class="m-big" style="font-size:22px;margin-top:2px">38 %</div>
+          <div class="m-soft" style="font-size:9.8px">des Weges bis zum Wochenende geschafft</div>
+        </div>
+        <div class="m-card">
+          <div class="m-lab" style="color:rgb(245,148,26)">Tageslicht</div>
+          <div style="display:flex;gap:12px">
+            <div><div style="font-size:8.4px;opacity:.45">Aufgang</div><div style="font-size:14px;font-weight:600;color:rgba(152,152,159,.55)">08:01</div></div>
+            <div><div style="font-size:8.4px">Untergang</div><div style="font-size:14px;font-weight:600;color:rgb(232,110,42)">16:17</div></div>
+          </div>
+          <div class="m-soft" style="font-size:9.1px;margin-top:4px">Heute waren es 8 Std. 16 Min. Tageslicht</div>
+          <div style="font-size:9.8px;margin-top:4px">Noch 27 Tage bis zur Wintersonnenwende – danach wächst das Licht wieder.</div>
+        </div>
       </div>
-      <div class="t">
-        <div class="lab" style="color:#8FA9C4">Morgen</div>
-        <b>Morgen ohne Termine – du bestimmst den Takt.</b>
-        <div class="chips"><span class="chip">Sonnig · max. 8°</span><span class="chip">Ausschlafen erlaubt</span></div>
+      <div class="m-sec">Rund um den Tag</div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(66,173,153)">Wissen zum Tag</div>
+        <div style="font-weight:600;font-size:12px">Warum ist Neuschnee so leise?</div>
+        <div style="font-size:10.5px;margin-top:2px">Zwischen den Flocken steckt viel Luft – sie schluckt den Schall wie ein Teppich.</div>
       </div>
-      <div class="row">
-        <div class="t"><div class="lab" style="color:#7FA8D6">Wochenende</div><span class="big">92 %</span><div class="soft">fast geschafft</div></div>
-        <div class="t"><div class="lab" style="color:#E8A93A">Tageslicht</div><span class="big">8:01</span><div class="soft">Std. heute</div></div>
-      </div>
-      <div class="sec">Rund um den Tag</div>
-      <div class="t">
-        <div class="lab" style="color:#3E9B7A">Wissen zum Tag</div>
-        Warum ist Neuschnee so leise? Zwischen den Flocken steckt viel Luft – sie schluckt den Schall wie ein Teppich.
-      </div>
-      <div class="t">
-        <div class="lab" style="color:#8FA9C4">Gute Nachrichten</div>
-        Ein Wald, der zurückkommt: Freiwillige pflanzen eine Million Bäume.
-      </div>
-      <div class="t">
-        <div class="lab" style="color:#8FA9C4">Hangman</div>
-        <span style="letter-spacing:.3em;font-weight:600">S _ N N _ N _ _ F G _ N G</span>
+      <div class="m-sec">Gute Nachrichten</div>
+      <div class="m-card">
+        <div class="m-soft" style="font-size:9.1px;font-weight:600">Positive News ›</div>
+        <div style="font-weight:600;font-size:12px">Ein Wald kehrt zurück: Freiwillige pflanzen eine Million Bäume</div>
       </div>
     </div></div>
   </div>
@@ -356,7 +387,7 @@
   <p class="stand">Stand: November 2026</p>
   <div class="legal">
     <h3>Kurz gesagt</h3>
-    <p>Guten Morgen braucht kein Konto, zeigt keine Werbung und verfolgt dich nicht. Was die App über dich weiß, bleibt auf deinem iPhone. Ich selbst erhalte keine Daten aus der App – außer du schreibst mir eine Mail.</p>
+    <p>„Guten Morgen – Dein Briefing“ braucht kein Konto, zeigt keine Werbung und verfolgt dich nicht. Was die App über dich weiß, bleibt auf deinem iPhone. Ich selbst erhalte keine Daten aus der App – außer du schreibst mir eine Mail.</p>
 
     <h3>Verantwortlich</h3>
     <p>Sebastian Wedell, E-Mail: <a href="mailto:s.wedell@me.com">s.wedell@me.com</a></p>
@@ -396,7 +427,7 @@
     <p>Ändert sich etwas an der App, passe ich diese Erklärung an. Es gilt die hier veröffentlichte Fassung.</p>
 
     <h3>Summary in English</h3>
-    <p>Guten Morgen has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather and place search from Open-Meteo, news feeds, Wikipedia, school holidays from OpenHolidays API); your IP address is transmitted technically. Contact: s.wedell@me.com.</p>
+    <p>“Guten Morgen – Dein Briefing” has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather and place search from Open-Meteo, news feeds, Wikipedia, school holidays from OpenHolidays API); your IP address is transmitted technically. Contact: s.wedell@me.com.</p>
   </div>
 </section>
 
@@ -404,7 +435,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Sebastian Wedell · Guten Morgen</span>
+    <span>© 2026 Sebastian Wedell · Guten Morgen – Dein Briefing</span>
     <a href="#impressum">Impressum</a>
     <a href="#datenschutz">Datenschutz</a>
     <a href="mailto:s.wedell@me.com">Kontakt</a>
