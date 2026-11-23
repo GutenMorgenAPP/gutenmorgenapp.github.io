@@ -25,17 +25,18 @@
   /* Kopfzeile */
   header.top{position:sticky;top:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 85%,transparent);
     backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line)}
-  header.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
+  header.top .wrap{display:flex;align-items:baseline;gap:14px;height:58px;padding-top:11px}   /* Logo-Schrift und Menü auf einer Schriftlinie */
+  .brand{display:block;font-weight:700;text-decoration:none;color:var(--text);white-space:nowrap;line-height:1}
   .brandsub{font-weight:500;color:var(--soft)}
   @media (max-width:380px){ .brandsub{display:none} }
-  .brand .brandcup{width:22px;height:30px;color:var(--text)}
+  .brand .brandcup{width:22px;height:30px;color:var(--text);vertical-align:-0.06em;margin-right:6px}   /* Untertasse auf der Schriftlinie – wie in der App */
   nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   img,svg{max-width:100%}
-  @media (max-width:360px){ .phone{width:100%} }
   nav a{color:var(--soft);text-decoration:none;font-size:15px}
   nav a:hover{color:var(--text)}
   @media (max-width:720px){ nav{display:none} }
+  @media (max-width:1000px){ nav{gap:14px} nav a{font-size:14px} }
+  @media (max-width:900px){ .brandsub{display:none} }
   /* Bereiche */
   section{padding:64px 0}
   section.wrap{padding:64px 22px 8px}
@@ -50,7 +51,7 @@
   section.hero{padding-top:56px}
   .hero>*{min-width:0}
   h1,h2{overflow-wrap:break-word}
-  @media (max-width:860px){ .hero{grid-template-columns:1fr} }
+  @media (max-width:860px){ .hero{grid-template-columns:minmax(0,1fr)} }
   .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1.5px solid var(--text);
     color:var(--text);text-decoration:none;font-weight:600;font-size:16px;background:transparent}
@@ -78,8 +79,8 @@
   .screen .notch{width:90px;height:24px;border-radius:20px;background:#000;margin:-4px auto 12px}
 
   /* Nachbau der App im Maßstab 0,7 (Schriftgrößen wie in der App × 0,7) */
-  .m-title{display:flex;align-items:baseline;gap:4px;font-weight:700;font-size:21px;line-height:1.15;margin:4px 3px 8px}
-  .cupsun{width:24px;height:33px;flex:none;color:#000;align-self:flex-end;margin-bottom:1px}
+  .m-title{font-weight:700;font-size:21px;line-height:1.15;margin:4px 3px 8px}
+  .cupsun{width:24px;height:33px;color:#000;vertical-align:-0.06em;margin-left:2px}
 
   .m-card{background:#fff;border-radius:15px;padding:10px;margin-bottom:7px}
 
@@ -106,6 +107,10 @@
 .screen .m-soft{color:#98989F}
 .screen .m-div{background:#38383A}
   }
+  /* iPhone-Spalte: rechts bündig mit dem Inhalt darunter, Hinweis mittig unter dem Gerät */
+  .phonecol{justify-self:end;width:300px;max-width:100%}
+  .phonecol .note{margin-top:14px}
+  @media (max-width:860px){ .phonecol{justify-self:center} }
   .note{font-size:14px;color:var(--soft);text-align:center;margin-top:18px}
   /* Ruhe-Leiste */
   .promise{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -125,7 +130,39 @@
   footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
   footer a{color:var(--soft)}
   footer .sp{margin-left:auto}
+  @media (max-width:360px){ .phone{width:100%} .screen{height:600px} }
+  /* Bewegung: Sonne steigt aus der Tasse, Inhalte gleiten sanft ein – nur, wenn das Gerät Bewegung erlaubt */
+  @keyframes gmRise{from{transform:translateY(var(--rise,300px))}to{transform:none}}
+  .sun.up{animation:gmRise 1.2s cubic-bezier(.2,.7,.3,1) .25s both}
+  .js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+  .js .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){ .sun.up{animation:none} .js .rv{opacity:1;transform:none;transition:none} }
+  /* Großer Auftritt: zwei iPhones überlappend (vorne wie das System, hinten die andere Darstellung), zarter Morgenschimmer */
+  main{overflow-x:hidden}
+  section.hero{position:relative;isolation:isolate}
+  .glow{position:absolute;top:-40px;bottom:0;left:35%;right:-15%;z-index:-1;pointer-events:none;
+    background:radial-gradient(45% 55% at 62% 42%, rgba(255,214,120,.38), transparent 70%),radial-gradient(40% 45% at 40% 78%, rgba(255,170,120,.18), transparent 70%)}
+  @media (prefers-color-scheme: dark){ .glow{background:radial-gradient(45% 55% at 62% 42%, rgba(255,190,90,.15), transparent 70%),radial-gradient(40% 45% at 40% 78%, rgba(255,140,90,.09), transparent 70%)} }
+  .phonecol.wide{width:430px}
+  .phones.stage{position:relative;display:block;width:430px;max-width:100%;height:676px}
+  .stage .phone{position:absolute;top:0;left:0;z-index:2}
+  .stage .phone.back{left:auto;right:0;top:32px;z-index:1}
+  @media (max-width:860px){ .glow{left:-10%;right:-10%;top:40%} }
+  @media (max-width:520px){
+    .phonecol.wide{width:300px}
+    .phones.stage{width:auto;height:auto}
+    .stage .phone{position:static}
+    .stage .phone.back{display:none}
+  }
+  /* feste Darstellung für das hintere iPhone (zeigt die jeweils andere: hell oder dunkel) */
+  .screen.force-dark{background:#000;color:#fff}
+  .force-dark .m-card{background:#1C1C1E}.force-dark .m-soft{color:#98989F}.force-dark .cupsun{color:#fff}
+  .force-dark .notch{background:#1C1C1E}.force-dark .m-div{background:#38383A}
+  .screen.force-light{background:#F2F2F7;color:#000}
+  .force-light .m-card{background:#fff}.force-light .m-soft{color:#6C6C70}.force-light .cupsun{color:#000}
+  .force-light .notch{background:#000}.force-light .m-div{background:#E5E5EA}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
@@ -142,7 +179,7 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#start"><svg class="brandcup" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,194,58)" d="M662.0 360.0 L660.7 379.6 L656.9 398.8 L650.6 417.4 L641.9 435.0 L631.0 451.3 L618.1 466.1 L603.3 479.0 L587.0 489.9 L569.4 498.6 L550.8 504.9 L531.6 508.7 L512.0 510.0 L492.4 508.7 L473.2 504.9 L454.6 498.6 L437.0 489.9 L420.7 479.0 L405.9 466.1 L393.0 451.3 L382.1 435.0 L373.4 417.4 L367.1 398.8 L363.3 379.6 L362.0 360.0 L363.3 340.4 L367.1 321.2 L373.4 302.6 L382.1 285.0 L393.0 268.7 L405.9 253.9 L420.7 241.0 L437.0 230.1 L454.6 221.4 L473.2 215.1 L492.4 211.3 L512.0 210.0 L531.6 211.3 L550.8 215.1 L569.4 221.4 L587.0 230.1 L603.3 241.0 L618.1 253.9 L631.0 268.7 L641.9 285.0 L650.6 302.6 L656.9 321.2 L660.7 340.4 L662.0 360.0 Z"/><path fill="none" stroke="rgb(255,194,58)" stroke-width="30" stroke-linecap="round" d="M512.0 165.0 L512.0 109.2 M626.6 202.2 L659.4 157.1 M697.5 299.7 L750.5 282.5 M697.5 420.3 L750.5 437.5 M326.5 420.3 L273.5 437.5 M326.5 299.7 L273.5 282.5 M397.4 202.2 L364.6 157.1"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg><span>Guten Morgen <span class="brandsub">– Dein Briefing</span></span></a>
+    <a class="brand" href="#start"><svg class="brandcup" data-cup="live" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,194,58)" d="M662.0 360.0 L660.7 379.6 L656.9 398.8 L650.6 417.4 L641.9 435.0 L631.0 451.3 L618.1 466.1 L603.3 479.0 L587.0 489.9 L569.4 498.6 L550.8 504.9 L531.6 508.7 L512.0 510.0 L492.4 508.7 L473.2 504.9 L454.6 498.6 L437.0 489.9 L420.7 479.0 L405.9 466.1 L393.0 451.3 L382.1 435.0 L373.4 417.4 L367.1 398.8 L363.3 379.6 L362.0 360.0 L363.3 340.4 L367.1 321.2 L373.4 302.6 L382.1 285.0 L393.0 268.7 L405.9 253.9 L420.7 241.0 L437.0 230.1 L454.6 221.4 L473.2 215.1 L492.4 211.3 L512.0 210.0 L531.6 211.3 L550.8 215.1 L569.4 221.4 L587.0 230.1 L603.3 241.0 L618.1 253.9 L631.0 268.7 L641.9 285.0 L650.6 302.6 L656.9 321.2 L660.7 340.4 L662.0 360.0 Z"/><path fill="none" stroke="rgb(255,194,58)" stroke-width="30" stroke-linecap="round" d="M512.0 165.0 L512.0 109.2 M626.6 202.2 L659.4 157.1 M697.5 299.7 L750.5 282.5 M697.5 420.3 L750.5 437.5 M326.5 420.3 L273.5 437.5 M326.5 299.7 L273.5 282.5 M397.4 202.2 L364.6 157.1"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg><span>Guten Morgen <span class="brandsub">– Dein Briefing</span></span></a>
     <nav>
       <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
       <a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
@@ -154,6 +191,7 @@
 
 <!-- Kopfbereich -->
 <section class="wrap hero">
+  <div class="glow" aria-hidden="true"></div>
   <div>
     <div class="kicker">Die iPhone-App für dein Briefing am Morgen</div>
     <h1>Guten Morgen,<br>der Tag kann kommen.</h1>
@@ -171,10 +209,11 @@
   </div>
 
   <!-- nachgebaute Ansicht der App (hell) -->
+  <div class="phonecol">
   <div class="phones" aria-label="So sieht die App aus">
-    <div class="phone"><div class="screen">
+    <div class="phone" id="mock-day"><div class="screen">
       <div class="notch"></div>
-      <div class="m-title">Guten Morgen, Alex! <svg class="cupsun" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,212,98)" d="M379.3 560.0 L373.8 548.4 L369.3 536.4 L365.9 524.0 L363.5 511.3 L362.2 498.6 L362.1 485.7 L363.0 472.9 L365.0 460.2 L368.1 447.7 L372.2 435.6 L377.4 423.8 L383.5 412.5 L390.6 401.8 L398.6 391.8 L407.5 382.4 L417.0 373.9 L427.3 366.2 L438.2 359.4 L449.7 353.6 L461.6 348.7 L473.9 344.9 L486.4 342.2 L499.2 340.6 L512.0 340.0 L524.8 340.6 L537.6 342.2 L550.1 344.9 L562.4 348.7 L574.3 353.6 L585.8 359.4 L596.7 366.2 L607.0 373.9 L616.5 382.4 L625.4 391.8 L633.4 401.8 L640.5 412.5 L646.6 423.8 L651.8 435.6 L655.9 447.7 L659.0 460.2 L661.0 472.9 L661.9 485.7 L661.8 498.6 L660.5 511.3 L658.1 524.0 L654.7 536.4 L650.2 548.4 L644.7 560.0 Z"/><path fill="none" stroke="rgb(255,212,98)" stroke-width="30" stroke-linecap="round" d="M512.0 295.0 L512.0 267.1 M626.6 332.2 L643.0 309.7 M697.5 429.7 L724.0 421.1 M326.5 429.7 L300.0 421.1 M397.4 332.2 L381.0 309.7"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
+      <div class="m-title"><span class="m-hello">Guten Morgen, Alex!</span> <svg class="cupsun" data-cup="morning" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,212,98)" d="M379.3 560.0 L373.8 548.4 L369.3 536.4 L365.9 524.0 L363.5 511.3 L362.2 498.6 L362.1 485.7 L363.0 472.9 L365.0 460.2 L368.1 447.7 L372.2 435.6 L377.4 423.8 L383.5 412.5 L390.6 401.8 L398.6 391.8 L407.5 382.4 L417.0 373.9 L427.3 366.2 L438.2 359.4 L449.7 353.6 L461.6 348.7 L473.9 344.9 L486.4 342.2 L499.2 340.6 L512.0 340.0 L524.8 340.6 L537.6 342.2 L550.1 344.9 L562.4 348.7 L574.3 353.6 L585.8 359.4 L596.7 366.2 L607.0 373.9 L616.5 382.4 L625.4 391.8 L633.4 401.8 L640.5 412.5 L646.6 423.8 L651.8 435.6 L655.9 447.7 L659.0 460.2 L661.0 472.9 L661.9 485.7 L661.8 498.6 L660.5 511.3 L658.1 524.0 L654.7 536.4 L650.2 548.4 L644.7 560.0 Z"/><path fill="none" stroke="rgb(255,212,98)" stroke-width="30" stroke-linecap="round" d="M512.0 295.0 L512.0 267.1 M626.6 332.2 L643.0 309.7 M697.5 429.7 L724.0 421.1 M326.5 429.7 L300.0 421.1 M397.4 332.2 L381.0 309.7"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
       <div class="m-card">
         <div class="m-lab" style="color:rgb(94,92,230)">Heute auf einen Blick</div>
         <div class="m-head">Zwei Termine, trockener Himmel – genug Raum für einen klaren Kopf.</div>
@@ -212,6 +251,8 @@
         <div class="m-li"><span>•</span><span class="m-soft">Reflektor an Jacke oder Tasche – morgens ist es noch dunkel</span></div>
       </div>
     </div></div>
+  </div>
+    <p class="note">Nachgebaute Ansicht zur Veranschaulichung – in der App sehen die Inhalte jeden Tag anders aus.</p>
   </div>
 </section>
 
@@ -292,12 +333,12 @@
     <div class="card"><h3>Immer</h3><p>Wissen, Zitat, gute Nachrichten und ein kleines Spiel – jeden Tag neu.</p></div>
   </div>
   </div>
-  <div>
+  <div class="phonecol">
   <div class="phones">
     <!-- dunkel, abends -->
-    <div class="phone"><div class="screen">
+    <div class="phone" id="mock-eve"><div class="screen">
       <div class="notch"></div>
-      <div class="m-title">Guten Abend, Alex! <svg class="cupsun" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,150,44)" d="M366.1 560.0 L363.9 548.9 L362.5 537.7 L362.0 526.5 L362.3 515.2 L363.5 503.9 L365.5 492.8 L368.3 481.9 L372.0 471.2 L376.4 460.9 L381.6 450.8 L387.6 441.2 L394.2 432.1 L401.5 423.5 L409.5 415.5 L418.0 408.1 L427.0 401.4 L436.6 395.3 L446.5 390.0 L456.9 385.5 L467.5 381.7 L478.4 378.8 L489.5 376.7 L500.7 375.4 L512.0 375.0 L523.3 375.4 L534.5 376.7 L545.6 378.8 L556.5 381.7 L567.1 385.5 L577.5 390.0 L587.4 395.3 L597.0 401.4 L606.0 408.1 L614.5 415.5 L622.5 423.5 L629.8 432.1 L636.4 441.2 L642.4 450.8 L647.6 460.9 L652.0 471.2 L655.7 481.9 L658.5 492.8 L660.5 503.9 L661.7 515.2 L662.0 526.5 L661.5 537.7 L660.1 548.9 L657.9 560.0 Z"/><path fill="none" stroke="rgb(255,150,44)" stroke-width="30" stroke-linecap="round" d="M512.0 330.0 L512.0 289.7 M626.6 367.2 L650.3 334.6 M697.5 464.7 L735.8 452.3 M326.5 464.7 L288.2 452.3 M397.4 367.2 L373.7 334.6"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
+      <div class="m-title"><span class="m-hello">Guten Abend, Alex!</span> <svg class="cupsun" data-cup="evening" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,150,44)" d="M366.1 560.0 L363.9 548.9 L362.5 537.7 L362.0 526.5 L362.3 515.2 L363.5 503.9 L365.5 492.8 L368.3 481.9 L372.0 471.2 L376.4 460.9 L381.6 450.8 L387.6 441.2 L394.2 432.1 L401.5 423.5 L409.5 415.5 L418.0 408.1 L427.0 401.4 L436.6 395.3 L446.5 390.0 L456.9 385.5 L467.5 381.7 L478.4 378.8 L489.5 376.7 L500.7 375.4 L512.0 375.0 L523.3 375.4 L534.5 376.7 L545.6 378.8 L556.5 381.7 L567.1 385.5 L577.5 390.0 L587.4 395.3 L597.0 401.4 L606.0 408.1 L614.5 415.5 L622.5 423.5 L629.8 432.1 L636.4 441.2 L642.4 450.8 L647.6 460.9 L652.0 471.2 L655.7 481.9 L658.5 492.8 L660.5 503.9 L661.7 515.2 L662.0 526.5 L661.5 537.7 L660.1 548.9 L657.9 560.0 Z"/><path fill="none" stroke="rgb(255,150,44)" stroke-width="30" stroke-linecap="round" d="M512.0 330.0 L512.0 289.7 M626.6 367.2 L650.3 334.6 M697.5 464.7 L735.8 452.3 M326.5 464.7 L288.2 452.3 M397.4 367.2 L373.7 334.6"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
       <div class="m-sec">Countdowns</div>
       <div class="m-row">
         <div class="m-card">
@@ -443,5 +484,83 @@
   </div>
 </footer>
 
+<script>
+/* Guten Morgen – kleine Lebendigkeit wie in der App:
+   1. Die Sonne in der Tasse steht so, wie es gerade Tageszeit ist, und steigt beim Laden einmal auf.
+   2. Die Seite folgt der Tageszeit: tagsüber oben die Tagesansicht, ab 17 Uhr die Abendansicht.
+   3. Inhalte gleiten beim Scrollen sanft ein. Bei „Bewegung reduzieren“ steht alles still. */
+(function(){
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var now = new Date(), h = now.getHours() + now.getMinutes()/60, m = now.getMonth();
+  // Sonnenauf- und -untergang in Norddeutschland (Monatsmittel, Ortszeit)
+  var R=[8.4,7.7,6.6,6.6,5.6,5.0,5.3,6.1,7.0,7.9,7.6,8.3], S=[16.4,17.3,18.2,20.1,20.9,21.5,21.4,20.6,19.4,18.3,16.4,16.0];
+  function phase(hr){ // wie in der App: Höhe der Sonne (d) und Strahlenlänge
+    var r=R[m], s=S[m], mid=(r+s)/2, t1=Math.min(r+3,mid), t2=Math.max(s-2.5,mid);
+    var k=[[r-.75,-200,0],[r-.4,-130,.1],[r,10,.35],[r+1.5,150,.75],[t1,300,1],[t2,300,1],[s-1.5,140,.9],[s,10,.7],[s+.6,-60,.45],[s+1.2,-200,0]];
+    if(hr<=k[0][0]||hr>=k[k.length-1][0]) return null;
+    for(var i=0;i<k.length-1;i++) if(hr>=k[i][0]&&hr<=k[i+1][0]){
+      var a=k[i],b=k[i+1],t=b[0]>a[0]?(hr-a[0])/(b[0]-a[0]):0, d=a[1]+(b[1]-a[1])*t;
+      return d<=-130?null:{d:d,ray:a[2]+(b[2]-a[2])*t};
+    }
+    return null;
+  }
+  function color(hr){ // morgens hell, abends warm
+    var st=[[5,255,226,122],[10,255,194,58],[15,255,174,46],[18,255,138,42],[22,232,85,42]]; hr=Math.min(22,Math.max(5,hr));
+    for(var i=0;i<st.length-1;i++) if(hr>=st[i][0]&&hr<=st[i+1][0]){var a=st[i],b=st[i+1],t=(hr-a[0])/(b[0]-a[0]);
+      return 'rgb('+[1,2,3].map(function(j){return Math.round(a[j]+(b[j]-a[j])*t)}).join(',')+')';}
+    return 'rgb(232,85,42)';
+  }
+  var n=0;
+  function cup(svg, ph, col, animate){
+    var rim=560, out='', id='gmclip'+(n++);
+    if(ph){
+      var cy=rim-ph.d, rays='';
+      if(ph.ray>.05){ var r1=195, r2=r1+62*ph.ray;
+        for(var i=0;i<10;i++){var t=(-90+i*36)*Math.PI/180, y1=cy+r1*Math.sin(t), y2=cy+r2*Math.sin(t);
+          if(y1<rim-22&&y2<rim-22) rays+='M'+(512+r1*Math.cos(t)).toFixed(1)+' '+y1.toFixed(1)+' L'+(512+r2*Math.cos(t)).toFixed(1)+' '+y2.toFixed(1)+' ';}
+      }
+      out+='<defs><clipPath id="'+id+'"><rect x="200" y="-400" width="680" height="960"/></clipPath></defs>'+
+        '<g clip-path="url(#'+id+')"><g class="sun'+(animate&&!still?' up':'')+'" style="--rise:'+Math.round(ph.d+170)+'px">'+
+        '<circle cx="512" cy="'+cy.toFixed(1)+'" r="150" fill="'+col+'"/>'+
+        (rays?'<path fill="none" stroke="'+col+'" stroke-width="30" stroke-linecap="round" d="'+rays+'"/>':'')+'</g></g>';
+    }
+    out+='<path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/>';
+    svg.innerHTML=out;
+  }
+  // Tagesansicht oder Abendansicht oben?  (Begrüßung wie in der App: bis 11 „Guten Morgen“, bis 17 „Hallo“, danach „Guten Abend“)
+  var day=document.getElementById('mock-day'), eve=document.getElementById('mock-eve');
+  var evening = now.getHours()>=17;
+  if(day&&eve&&evening){ var a=day.parentNode, b=eve.parentNode, ph=document.createElement('div');
+    a.replaceChild(ph,day); b.replaceChild(day,eve); a.replaceChild(eve,ph); }
+  var hello = now.getHours()<11 ? 'Guten Morgen, Alex!' : now.getHours()<17 ? 'Hallo, Alex!' : 'Guten Abend, Alex!';
+  var top = evening ? eve : day;
+  if(top){ var t=top.querySelector('.m-hello'); if(t) t.textContent=hello; }
+  // Sonne: Logo und obere Ansicht nach der echten Uhrzeit, die untere Ansicht als feste Morgen-/Abendszene
+  [].forEach.call(document.querySelectorAll('[data-cup]'),function(svg){
+    var kind=svg.getAttribute('data-cup'), live = kind==='live' || (top && top.contains(svg));
+    var hr = live ? h : (kind==='evening' ? S[m]-0.3 : R[m]+0.8);
+    cup(svg, phase(hr), color(hr), live);
+  });
+  // Großer Auftritt oben: das andere iPhone (Abend bzw. Tag) leicht versetzt dahinter – in der jeweils anderen Darstellung
+  var heroCol=document.querySelector('section.hero .phonecol'), other = evening ? day : eve;
+  if(heroCol && other && top){
+    var phones=heroCol.querySelector('.phones'), back=other.cloneNode(true);
+    back.removeAttribute('id'); back.classList.add('back'); back.setAttribute('aria-hidden','true');
+    var dark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+    var scr=back.querySelector('.screen'); if(scr) scr.classList.add(dark?'force-light':'force-dark');
+    phones.classList.add('stage'); phones.appendChild(back); heroCol.classList.add('wide');
+    var note=heroCol.querySelector('.note'); if(note) note.textContent='Nachgebaute Ansichten zur Veranschaulichung – in der App sehen die Inhalte jeden Tag anders aus.';
+    if(window.matchMedia){ var mq=matchMedia('(prefers-color-scheme: dark)'), sw=function(){ scr.classList.toggle('force-light',mq.matches); scr.classList.toggle('force-dark',!mq.matches); };
+      if(mq.addEventListener) mq.addEventListener('change',sw); else if(mq.addListener) mq.addListener(sw); }
+  }
+  // Sanftes Einblenden beim Scrollen
+  var items=document.querySelectorAll('main h2, main .card, .phone, .legal');
+  [].forEach.call(items,function(e){ e.classList.add('rv'); });
+  if(!('IntersectionObserver' in window)||still){ [].forEach.call(items,function(e){e.classList.add('in')}); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in');
+      io.unobserve(e.target);} }); },{rootMargin:'0px 0px -8% 0px'});
+  [].forEach.call(items,function(e){ io.observe(e); });
+})();
+</script>
 </body>
 </html>
