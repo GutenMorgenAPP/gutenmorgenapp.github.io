@@ -138,16 +138,15 @@
   .js .rv.in{opacity:1;transform:none}
   @media (prefers-reduced-motion: reduce){ .sun.up{animation:none} .js .rv{opacity:1;transform:none;transition:none} }
   /* Großer Auftritt: zwei iPhones überlappend (vorne wie das System, hinten die andere Darstellung), zarter Morgenschimmer */
-  main{overflow-x:hidden}
   section.hero{position:relative;isolation:isolate}
-  .glow{position:absolute;top:-40px;bottom:0;left:35%;right:-15%;z-index:-1;pointer-events:none;
+  .glow{position:absolute;top:-40px;bottom:0;left:35%;right:0;z-index:-1;pointer-events:none;
     background:radial-gradient(45% 55% at 62% 42%, rgba(255,214,120,.38), transparent 70%),radial-gradient(40% 45% at 40% 78%, rgba(255,170,120,.18), transparent 70%)}
   @media (prefers-color-scheme: dark){ .glow{background:radial-gradient(45% 55% at 62% 42%, rgba(255,190,90,.15), transparent 70%),radial-gradient(40% 45% at 40% 78%, rgba(255,140,90,.09), transparent 70%)} }
   .phonecol.wide{width:430px}
   .phones.stage{position:relative;display:block;width:430px;max-width:100%;height:676px}
   .stage .phone{position:absolute;top:0;left:0;z-index:2}
   .stage .phone.back{left:auto;right:0;top:32px;z-index:1}
-  @media (max-width:860px){ .glow{left:-10%;right:-10%;top:40%} }
+  @media (max-width:860px){ .glow{left:0;right:0;top:40%} }
   @media (max-width:520px){
     .phonecol.wide{width:300px}
     .phones.stage{width:auto;height:auto}
