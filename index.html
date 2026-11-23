@@ -68,6 +68,7 @@
   /* iPhone-Ansicht (nachgebaut) */
   .phones{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
   .phone{width:300px;border-radius:44px;padding:12px;background:#1C1C1E;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+  @media (prefers-color-scheme: dark){ .phone{background:#2C2C2E;box-shadow:0 0 0 1px #3A3A3C} }
   .screen{border-radius:34px;overflow:hidden;background:#F2F2F7;color:#1C1C1E;padding:18px 14px 20px;font-size:13px;line-height:1.4;height:600px;position:relative}
   .screen.dark{background:#000;color:#F2F2F7}
   .screen .notch{width:96px;height:26px;border-radius:20px;background:#000;margin:-6px auto 14px}
@@ -253,10 +254,18 @@
 </section>
 
 <!-- Ansehen -->
-<section id="ansehen" class="wrap">
+<section id="ansehen" class="wrap hero">
+  <div>
   <div class="kicker">Ansehen</div>
   <h2>Ruhig. Klar. Freundlich.</h2>
   <p class="sub">Schlichte Kacheln im Stil von iOS, klare Symbole und viel Luft. Morgens hell, abends gern dunkel.</p>
+  <div class="grid">
+    <div class="card"><h3>Morgens</h3><p>Ein Satz zum Tag, Wetter, Termine und dein Fokus – alles oben, ohne Scrollen.</p></div>
+    <div class="card"><h3>Abends</h3><p>Ab 19 Uhr der Blick auf morgen, dazu Tageslicht und wie weit das Wochenende noch ist.</p></div>
+    <div class="card"><h3>Immer</h3><p>Wissen, Zitat, gute Nachrichten und ein kleines Spiel – jeden Tag neu.</p></div>
+  </div>
+  </div>
+  <div>
   <div class="phones">
     <!-- dunkel, abends -->
     <div class="phone"><div class="screen dark">
@@ -288,7 +297,8 @@
       </div>
     </div></div>
   </div>
-  <p class="note">Nachgebaute Ansichten zur Veranschaulichung – in der App sehen die Inhalte jeden Tag anders aus.</p>
+  <p class="note">Nachgebaute Ansicht zur Veranschaulichung – in der App sehen die Inhalte jeden Tag anders aus.</p>
+  </div>
 </section>
 
 <!-- Versprechen -->
@@ -362,11 +372,11 @@
     <h3>Welche Dienste die App abfragt</h3>
     <p>Damit Inhalte aktuell sind, ruft die App öffentliche Informationen ab. Dabei wird – wie bei jedem Aufruf einer Webseite – technisch deine IP-Adresse an den jeweiligen Dienst übermittelt. Es werden keine Namen, Termine oder Kontakte gesendet.</p>
     <ul>
-      <li><b>Wetter:</b> Open-Meteo.com – mit den (gerundeten) Koordinaten deines Ortes.</li>
-      <li><b>Ortsname:</b> bei eingeschaltetem Standort über die Ortsbestimmung von Apple.</li>
-      <li><b>Nachrichten:</b> öffentliche Nachrichten-Feeds (z. B. Squirrel News, Good News).</li>
-      <li><b>Wissen und „Heute vor … Jahren“:</b> Wikipedia.</li>
-      <li><b>Ferien und Feiertage:</b> öffentliche Ferienkalender für dein Bundesland.</li>
+      <li><b>Wetter:</b> Open-Meteo.com – mit den (gerundeten) Koordinaten deines Ortes, auch für den Vergleich mit dem Vorjahr.</li>
+      <li><b>Ort:</b> Suche nach Ortsname oder Postleitzahl über Open-Meteo und Zippopotam.us; bei eingeschaltetem Standort über die Ortsbestimmung von Apple.</li>
+      <li><b>Nachrichten:</b> öffentliche Nachrichten-Feeds (z. B. Squirrel News, Good News Network, Positive News, Reasons to be Cheerful, goodnews.eu).</li>
+      <li><b>Wissen und „Heute vor … Jahren“:</b> Wikipedia und Wikimedia.</li>
+      <li><b>Schulferien:</b> OpenHolidays API (openholidaysapi.org) für dein Bundesland. Feiertage berechnet die App selbst.</li>
     </ul>
     <p>Rechtsgrundlage ist unser berechtigtes Interesse an einer funktionierenden App (Art. 6 Abs. 1 lit. f DSGVO) bzw. deine Einwilligung über die Freigaben des iPhones (Art. 6 Abs. 1 lit. a DSGVO).</p>
 
@@ -386,7 +396,7 @@
     <p>Ändert sich etwas an der App, passe ich diese Erklärung an. Es gilt die hier veröffentlichte Fassung.</p>
 
     <h3>Summary in English</h3>
-    <p>Guten Morgen has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather from Open-Meteo, news feeds, Wikipedia, holiday calendars); your IP address is transmitted technically. Contact: s.wedell@me.com.</p>
+    <p>Guten Morgen has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather and place search from Open-Meteo, news feeds, Wikipedia, school holidays from OpenHolidays API); your IP address is transmitted technically. Contact: s.wedell@me.com.</p>
   </div>
 </section>
 
