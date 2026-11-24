@@ -35,6 +35,20 @@
   nav a{color:var(--soft);text-decoration:none;font-size:15px}
   nav a:hover{color:var(--text)}
   @media (max-width:720px){ nav{display:none} }
+  /* Handy: Menü zum Aufklappen statt ausgeblendeter Leiste – schlichter Textlink, kein gefüllter Knopf */
+  .mnav{display:none}
+  @media (max-width:720px){
+    .mnav{display:block;margin-left:auto;position:relative}
+    .mnav summary{list-style:none;cursor:pointer;color:var(--soft);font-size:15px;padding:4px 2px;-webkit-tap-highlight-color:transparent}
+    .mnav summary::-webkit-details-marker{display:none}
+    .mnav summary::after{content:" ▾"}
+    .mnav[open] summary{color:var(--text)}
+    .mnav[open] summary::after{content:" ▴"}
+    .mnavlist{position:absolute;right:0;top:calc(100% + 10px);min-width:190px;background:var(--card);border:1px solid var(--line);
+      border-radius:16px;padding:6px;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .mnavlist a{color:var(--text);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:16px}
+    .mnavlist a:active{background:var(--bg)}
+  }
   @media (max-width:1000px){ nav{gap:14px} nav a{font-size:14px} }
   @media (max-width:900px){ .brandsub{display:none} }
   /* Bereiche */
@@ -107,6 +121,16 @@
 .screen .m-soft{color:#98989F}
 .screen .m-div{background:#38383A}
   }
+  .m-chips.one{flex-wrap:nowrap}
+  .m-chip{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:12px;padding:3px 6px 3px 5px}
+  .m-chip .m-ic{display:block;flex:none}
+  .m-cap{font-size:8.4px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.5;margin:4px 0 3px}
+  .m-ev{display:flex;align-items:flex-start;gap:6px;margin:3px 0;line-height:15px}.m-ev .m-ic{width:13px;height:13px;flex:none;opacity:.75;margin-top:1px}  /* Symbol auf Höhe der ersten Zeile */
+  /* unten weich auslaufen lassen: wirkt wie eine Seite, die weitergeht */
+  .screen::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;pointer-events:none;background:linear-gradient(rgba(242,242,247,0),#F2F2F7 85%)}
+  .screen.force-dark::after{background:linear-gradient(rgba(0,0,0,0),#000 85%)}
+  .screen.force-light::after{background:linear-gradient(rgba(242,242,247,0),#F2F2F7 85%)}
+  @media (prefers-color-scheme: dark){ .screen::after{background:linear-gradient(rgba(0,0,0,0),#000 85%)} .screen.force-light::after{background:linear-gradient(rgba(242,242,247,0),#F2F2F7 85%)} }
   /* iPhone-Spalte: rechts bündig mit dem Inhalt darunter, Hinweis mittig unter dem Gerät */
   .phonecol{justify-self:end;width:300px;max-width:100%}
   .phonecol .note{margin-top:14px}
@@ -188,8 +212,15 @@
     <a class="brand" href="#start"><svg class="brandcup" data-cup="live" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,194,58)" d="M662.0 360.0 L660.7 379.6 L656.9 398.8 L650.6 417.4 L641.9 435.0 L631.0 451.3 L618.1 466.1 L603.3 479.0 L587.0 489.9 L569.4 498.6 L550.8 504.9 L531.6 508.7 L512.0 510.0 L492.4 508.7 L473.2 504.9 L454.6 498.6 L437.0 489.9 L420.7 479.0 L405.9 466.1 L393.0 451.3 L382.1 435.0 L373.4 417.4 L367.1 398.8 L363.3 379.6 L362.0 360.0 L363.3 340.4 L367.1 321.2 L373.4 302.6 L382.1 285.0 L393.0 268.7 L405.9 253.9 L420.7 241.0 L437.0 230.1 L454.6 221.4 L473.2 215.1 L492.4 211.3 L512.0 210.0 L531.6 211.3 L550.8 215.1 L569.4 221.4 L587.0 230.1 L603.3 241.0 L618.1 253.9 L631.0 268.7 L641.9 285.0 L650.6 302.6 L656.9 321.2 L660.7 340.4 L662.0 360.0 Z"/><path fill="none" stroke="rgb(255,194,58)" stroke-width="30" stroke-linecap="round" d="M512.0 165.0 L512.0 109.2 M626.6 202.2 L659.4 157.1 M697.5 299.7 L750.5 282.5 M697.5 420.3 L750.5 437.5 M326.5 420.3 L273.5 437.5 M326.5 299.7 L273.5 282.5 M397.4 202.2 L364.6 157.1"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg><span>Guten Morgen <span class="brandsub">– Dein Briefing</span></span></a>
     <nav>
       <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
-      <a href="#fragen">Fragen</a><a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
+      <a href="#fragen">Hilfe</a><a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
     </nav>
+    <details class="mnav">
+      <summary aria-label="Menü öffnen">Menü</summary>
+      <div class="mnavlist">
+        <a href="#warum">Warum</a><a href="#funktionen">Funktionen</a><a href="#ansehen">Ansehen</a>
+        <a href="#fragen">Hilfe</a><a href="#kontakt">Kontakt</a><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>
+      </div>
+    </details>
   </div>
 </header>
 
@@ -222,11 +253,11 @@
       <div class="m-title"><span class="m-hello">Guten Morgen, Alex!</span> <svg class="cupsun" data-cup="morning" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,212,98)" d="M379.3 560.0 L373.8 548.4 L369.3 536.4 L365.9 524.0 L363.5 511.3 L362.2 498.6 L362.1 485.7 L363.0 472.9 L365.0 460.2 L368.1 447.7 L372.2 435.6 L377.4 423.8 L383.5 412.5 L390.6 401.8 L398.6 391.8 L407.5 382.4 L417.0 373.9 L427.3 366.2 L438.2 359.4 L449.7 353.6 L461.6 348.7 L473.9 344.9 L486.4 342.2 L499.2 340.6 L512.0 340.0 L524.8 340.6 L537.6 342.2 L550.1 344.9 L562.4 348.7 L574.3 353.6 L585.8 359.4 L596.7 366.2 L607.0 373.9 L616.5 382.4 L625.4 391.8 L633.4 401.8 L640.5 412.5 L646.6 423.8 L651.8 435.6 L655.9 447.7 L659.0 460.2 L661.0 472.9 L661.9 485.7 L661.8 498.6 L660.5 511.3 L658.1 524.0 L654.7 536.4 L650.2 548.4 L644.7 560.0 Z"/><path fill="none" stroke="rgb(255,212,98)" stroke-width="30" stroke-linecap="round" d="M512.0 295.0 L512.0 267.1 M626.6 332.2 L643.0 309.7 M697.5 429.7 L724.0 421.1 M326.5 429.7 L300.0 421.1 M397.4 332.2 L381.0 309.7"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
       <div class="m-card">
         <div class="m-lab" style="color:rgb(94,92,230)">Heute auf einen Blick</div>
-        <div class="m-head">Zwei Termine, trockener Himmel – genug Raum für einen klaren Kopf.</div>
-        <div class="m-chips">
-          <span class="m-chip" style="color:rgb(51,122,230);border-color:rgba(51,122,230,.35)">Trocken · max. 6°</span>
-          <span class="m-chip" style="color:rgb(219,56,51);border-color:rgba(219,56,51,.3)">2 Termine ab 9:00</span>
-          <span class="m-chip" style="color:rgb(245,148,26);border-color:rgba(245,148,26,.4)">Licht bis 16:15</span>
+        <div class="m-head">Ein trockener Tag, und zwischen den Terminen bleibt genug Luft.</div>
+        <div class="m-chips one">
+          <span class="m-chip" style="color:rgb(51,122,230);border-color:rgba(51,122,230,.35)"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M17.5%2019H9a7%207%200%201%201%206.71-9h1.79a4.5%204.5%200%201%201%200%209Z%22/%3E%3C/svg%3E');width:10px;height:10px"></i>max. 6°</span>
+          <span class="m-chip" style="color:rgb(219,56,51);border-color:rgba(219,56,51,.3)"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22/%3E%3Cpath%20d%3D%22M16%202v4M8%202v4M3%2010h18M8%2014h.01M12%2014h.01M16%2014h.01M8%2018h.01M12%2018h.01%22/%3E%3C/svg%3E');width:10px;height:10px"></i>2× ab 9 Uhr</span>
+          <span class="m-chip" style="color:rgb(245,148,26);border-color:rgba(245,148,26,.4)"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%224%22/%3E%3Cpath%20d%3D%22M12%202v2M12%2020v2M4.93%204.93l1.41%201.41M17.66%2017.66l1.41%201.41M2%2012h2M20%2012h2M6.34%2017.66l-1.41%201.41M19.07%204.93l-1.41%201.41%22/%3E%3C/svg%3E');width:10px;height:10px"></i>bis 16:15</span>
         </div>
       </div>
       <div class="m-row">
@@ -248,13 +279,19 @@
       </div>
       <div class="m-card">
         <div class="m-lab" style="color:rgb(92,168,224)">Wettertipp</div>
-        <div>Grau, aber trocken – der Himmel spart sich den Regen fürs Wochenende.</div>
+        <div>Kalte Luft weckt besser als Espresso.</div>
         <div class="m-div"></div>
         <div class="m-lab" style="color:rgb(92,168,224)">Kleidungstipp</div>
         <div>Gefühlt jetzt 1°, mittags 4°</div>
-        <div style="display:flex;gap:11px;margin:5px 0;color:rgb(82,115,158)"><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTMuNSA0LjUgTCAyMi41IDQuNSBMIDI0Ljc1IDkgTCAzMCAxMiBMIDMwIDMxLjUgTCAyMy4yNSAzMS41IEwgMjMuMjUgMTggTSAxMy41IDQuNSBMIDExLjI1IDkgTCA2IDEyIEwgNiAzMS41IEwgMTIuNzUgMzEuNSBMIDEyLjc1IDE4ICIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDEyLjc1IDMxLjUgTCAyMy4yNSAzMS41IE0gMTggMTAuNSBMIDE4IDMxLjUgTSAxMy41IDQuNSBDIDEzLjUgNy41IDE1LjQ0OTIxOSAxMC41IDE4IDEwLjUgQyAyMC41NTA3ODEgMTAuNSAyMi41IDcuNSAyMi41IDQuNSAiLz4KPC9zdmc+Cg==);width:17px;height:17px"></i><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gOSA1LjI1IEMgMTEuMzk4NDM4IDcuOTQ5MjE5IDE0LjU1MDc4MSA5LjMwMDc4MSAxOCA5LjMwMDc4MSBDIDIxLjQ0OTIxOSA5LjMwMDc4MSAyNC42MDE1NjIgNy45NDkyMTkgMjcgNS4yNSBMIDI3IDExLjI1IEMgMjQuNjAxNTYyIDEzLjk0OTIxOSAyMS40NDkyMTkgMTUuMzAwNzgxIDE4IDE1LjMwMDc4MSBDIDE0LjU1MDc4MSAxNS4zMDA3ODEgMTEuMzk4NDM4IDEzLjk0OTIxOSA5IDExLjI1IFogTSA5IDUuMjUgIi8+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTIuNzUgMTQuMzk4NDM4IEwgMTIuNzUgMzAuNzUgTCAxOCAzMC43NSBMIDE4IDE1LjMwMDc4MSAiLz4KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlPSJyZ2IoMCUsIDAlLCAwJSkiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2UtbWl0ZXJsaW1pdD0iNCIgZD0iTSAxMi43NSAyNyBMIDE4IDI3ICIvPgo8L3N2Zz4K);width:17px;height:17px"></i></div>
+        <div style="display:flex;gap:11px;margin:5px 0;color:rgb(82,115,158)"><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiI+CjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZT0icmdiKDAlLCAwJSwgMCUpIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiIGQ9Ik0gMTMuNSA0LjUgTCAyMi41IDQuNSBMIDI0Ljc1IDkgTCAzMCAxMiBMIDMwIDMxLjUgTCAyMy4yNSAzMS41IEwgMjMuMjUgMTggTSAxMy41IDQuNSBMIDExLjI1IDkgTCA2IDEyIEwgNiAzMS41IEwgMTIuNzUgMzEuNSBMIDEyLjc1IDE4ICIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9InJnYigwJSwgMCUsIDAlKSIgc3Ryb2tlLW9wYWNpdHk9IjEiIHN0cm9rZS1taXRlcmxpbWl0PSI0IiBkPSJNIDEyLjc1IDMxLjUgTCAyMy4yNSAzMS41IE0gMTggMTAuNSBMIDE4IDMxLjUgTSAxMy41IDQuNSBDIDEzLjUgNy41IDE1LjQ0OTIxOSAxMC41IDE4IDEwLjUgQyAyMC41NTA3ODEgMTAuNSAyMi41IDcuNSAyMi41IDQuNSAiLz4KPC9zdmc+Cg==);width:17px;height:17px"></i><i class="m-ic" style="--i:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgdmlld0JveD0iMCAwIDM2IDM2IiBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHBhdGggZD0iTTggNi41IEM4IDEyLjUgMjggMTIuNSAyOCA2LjUgTDI4IDExLjUgQzI4IDE3LjUgOCAxNy41IDggMTEuNSBaIi8+CjxwYXRoIGQ9Ik0xMyAxNS42IEwxMS41IDI4IEwxNy41IDI4IEwxOC42IDE2LjQiLz4KPHBhdGggZD0iTTEyIDI4IEwxMS43IDMxLjUgTTE0LjUgMjggTDE0LjUgMzEuNSBNMTcgMjggTDE3LjIgMzEuNSIvPgo8cGF0aCBkPSJNMTkuNiAxNi4zIEwyMi41IDI2LjUgTDI3LjUgMjUgTDI0LjUgMTUiLz4KPC9zdmc+Cg==);width:17px;height:17px"></i></div>
         <div class="m-li"><span>•</span><span style="font-weight:600">Warme Jacke, dazu ein leichter Schal</span></div>
         <div class="m-li"><span>•</span><span class="m-soft">Reflektor an Jacke oder Tasche – morgens ist es noch dunkel</span></div>
+      </div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(191,90,242)">Zitat des Tages</div>
+        <div class="m-head">„Ein Plan macht ein Leben unterhaltend, man mag es lesen oder führen.“</div>
+        <div style="font-weight:600;font-size:10.5px;margin-top:4px">Jean Paul</div>
+        <div class="m-soft" style="font-size:9.1px">Deutscher Schriftsteller (1763–1825) – berühmt für seinen verspielten Humor.</div>
       </div>
     </div></div>
   </div>
@@ -345,6 +382,17 @@
     <div class="phone" id="mock-eve"><div class="screen">
       <div class="notch"></div>
       <div class="m-title"><span class="m-hello">Guten Abend, Alex!</span> <svg class="cupsun" data-cup="evening" viewBox="200 -15 680 945" aria-hidden="true"><path fill="rgb(255,150,44)" d="M366.1 560.0 L363.9 548.9 L362.5 537.7 L362.0 526.5 L362.3 515.2 L363.5 503.9 L365.5 492.8 L368.3 481.9 L372.0 471.2 L376.4 460.9 L381.6 450.8 L387.6 441.2 L394.2 432.1 L401.5 423.5 L409.5 415.5 L418.0 408.1 L427.0 401.4 L436.6 395.3 L446.5 390.0 L456.9 385.5 L467.5 381.7 L478.4 378.8 L489.5 376.7 L500.7 375.4 L512.0 375.0 L523.3 375.4 L534.5 376.7 L545.6 378.8 L556.5 381.7 L567.1 385.5 L577.5 390.0 L587.4 395.3 L597.0 401.4 L606.0 408.1 L614.5 415.5 L622.5 423.5 L629.8 432.1 L636.4 441.2 L642.4 450.8 L647.6 460.9 L652.0 471.2 L655.7 481.9 L658.5 492.8 L660.5 503.9 L661.7 515.2 L662.0 526.5 L661.5 537.7 L660.1 548.9 L657.9 560.0 Z"/><path fill="none" stroke="rgb(255,150,44)" stroke-width="30" stroke-linecap="round" d="M512.0 330.0 L512.0 289.7 M626.6 367.2 L650.3 334.6 M697.5 464.7 L735.8 452.3 M326.5 464.7 L288.2 452.3 M397.4 367.2 L373.7 334.6"/><path fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" d="M290 560 L734 560 L734 640 C734 760 650 840 512 840 C374 840 290 760 290 640 Z M734 609 C780 609 800 636 800 666 C800 701 776 720 719 722 M250 888 L774 888"/></svg></div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(94,92,230)">Dein Abend</div>
+        <div class="m-cap">Heute</div>
+        <div class="m-ev"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%229%22/%3E%3Cpath%20d%3D%22m8.5%2012%202.5%202.5%204.5-5%22/%3E%3C/svg%3E')"></i><span>Alle 3 Termine geschafft</span></div>
+        <div class="m-ev"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%2016v-2.38C4%2011.5%202.97%2010.5%203%208c.03-2.72%201.49-6%204.5-6C9.37%202%2010%203.8%2010%205.5c0%203.11-2%205.66-2%208.68V16a2%202%200%201%201-4%200Z%22/%3E%3Cpath%20d%3D%22M20%2020v-2.38c0-2.12%201.03-3.12%201-5.62-.03-2.72-1.49-6-4.5-6C14.63%206%2014%207.8%2014%209.5c0%203.1%202%205.66%202%208.68V20a2%202%200%201%200%204%200Z%22/%3E%3C/svg%3E')"></i><span>8.240 Schritte – die Schuhe haben Feierabend verdient.</span></div>
+        <div class="m-div"></div>
+        <div class="m-cap">Morgen</div>
+        <div class="m-ev"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%223%22%20y%3D%224%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22/%3E%3Cpath%20d%3D%22M16%202v4M8%202v4M3%2010h18M8%2014h.01M12%2014h.01M16%2014h.01M8%2018h.01M12%2018h.01%22/%3E%3C/svg%3E')"></i><span>Erster Termin 9:30 – ganz entspannt</span></div>
+        <div class="m-ev"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M17.5%2019H9a7%207%200%201%201%206.71-9h1.79a4.5%204.5%200%201%201%200%209Z%22/%3E%3C/svg%3E')"></i><span>max. 7°, trocken</span></div>
+        <div class="m-ev"><i class="m-ic" style="--i:url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M12%202v8M4.93%2010.93l1.41%201.41M2%2018h2M20%2018h2M19.07%2010.93l-1.41%201.41M22%2022H2M8%206l4-4%204%204M16%2018a4%204%200%200%200-8%200%22/%3E%3C/svg%3E')"></i><span class="m-soft">Sonnenaufgang 8:02</span></div>
+      </div>
       <div class="m-sec">Countdowns</div>
       <div class="m-row">
         <div class="m-card">
@@ -368,10 +416,20 @@
         <div style="font-weight:600;font-size:12px">Warum ist Neuschnee so leise?</div>
         <div style="font-size:10.5px;margin-top:2px">Zwischen den Flocken steckt viel Luft – sie schluckt den Schall wie ein Teppich.</div>
       </div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(191,90,242)">Zitat des Tages</div>
+        <div class="m-head">„Frei, aber nicht frech, das ist so mein Satz.“</div>
+        <div style="font-weight:600;font-size:10.5px;margin-top:4px">Theodor Fontane</div>
+        <div class="m-soft" style="font-size:9.1px">Der Stechlin (1898), 6. Kapitel</div>
+      </div>
       <div class="m-sec">Gute Nachrichten</div>
       <div class="m-card">
         <div class="m-soft" style="font-size:9.1px;font-weight:600">Positive News ›</div>
         <div style="font-weight:600;font-size:12px">Ein Wald kehrt zurück: Freiwillige pflanzen eine Million Bäume</div>
+      </div>
+      <div class="m-card">
+        <div class="m-lab" style="color:rgb(212,160,23)">Schon gewusst?</div>
+        <div style="font-size:10.5px">Ein Tag auf der Venus dauert länger als ein ganzes Venusjahr.</div>
       </div>
     </div></div>
   </div>
@@ -468,6 +526,7 @@
     <p>Damit Inhalte aktuell sind, ruft die App öffentliche Informationen ab. Dabei wird – wie bei jedem Aufruf einer Webseite – technisch deine IP-Adresse an den jeweiligen Dienst übermittelt. Es werden keine Namen, Termine oder Kontakte gesendet.</p>
     <ul>
       <li><b>Wetter:</b> Open-Meteo.com – mit den (gerundeten) Koordinaten deines Ortes, auch für den Vergleich mit dem Vorjahr.</li>
+      <li><b>Ausflugsziele am Wochenende:</b> Suche über Apple Karten – mit den (gerundeten) Koordinaten deines Ortes.</li>
       <li><b>Ort:</b> Suche nach Ortsname oder Postleitzahl über Open-Meteo und Zippopotam.us; bei eingeschaltetem Standort über die Ortsbestimmung von Apple.</li>
       <li><b>Nachrichten:</b> öffentliche Nachrichten-Feeds (z. B. Squirrel News, Good News Network, Positive News, Reasons to be Cheerful, goodnews.eu).</li>
       <li><b>Wissen und „Heute vor … Jahren“:</b> Wikipedia und Wikimedia.</li>
@@ -491,7 +550,7 @@
     <p>Ändert sich etwas an der App, passe ich diese Erklärung an. Es gilt die hier veröffentlichte Fassung.</p>
 
     <h3>Summary in English</h3>
-    <p>“Guten Morgen – Dein Briefing” has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather and place search from Open-Meteo, news feeds, Wikipedia, school holidays from OpenHolidays API); your IP address is transmitted technically. Contact: gutenmorgenapp@icloud.com.</p>
+    <p>“Guten Morgen – Dein Briefing” has no account, no ads and no tracking. Your settings, calendar, contacts and steps stay on your iPhone. To show current content, the app fetches public data (weather and place search from Open-Meteo, nearby places from Apple Maps, news feeds, Wikipedia, school holidays from OpenHolidays API); your IP address is transmitted technically. Contact: gutenmorgenapp@icloud.com.</p>
   </div>
 </section>
 
@@ -508,6 +567,7 @@
 </footer>
 
 <script>
+document.querySelectorAll(".mnavlist a").forEach(function(a){a.addEventListener("click",function(){var d=a.closest("details");if(d)d.removeAttribute("open");});});
 /* Guten Morgen – kleine Lebendigkeit wie in der App:
    1. Die Sonne in der Tasse steht so, wie es gerade Tageszeit ist, und steigt beim Laden einmal auf.
    2. Die Seite folgt der Tageszeit: tagsüber oben die Tagesansicht, ab 17 Uhr die Abendansicht.
