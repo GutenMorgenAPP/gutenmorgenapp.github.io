@@ -306,5 +306,15 @@ footer a:hover{color:var(--text)}
     </nav>
   </div>
 </footer>
+<script>
+/* Beim Neuladen immer oben anfangen – nicht dort, wo man zuletzt war oder wohin ein Link gesprungen ist */
+if('scrollRestoration' in history){history.scrollRestoration='manual';}
+addEventListener('load',function(){
+  var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];
+  var neu=n&&n.type==='reload';
+  if(neu&&location.hash){history.replaceState(null,'',location.pathname+location.search);}
+  if(neu||!location.hash){window.scrollTo({top:0,left:0,behavior:'instant'});}
+});
+</script>
 </body>
 </html>
