@@ -58,6 +58,10 @@ nav ul a:hover{opacity:1}
 .badge small{display:block;font-weight:400;font-size:13px;opacity:.9}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
 .pills span{font-size:14px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.6);color:#1C1C1E;border:.5px solid rgba(255,255,255,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.privat{display:flex;gap:12px;align-items:flex-start;margin-top:14px;max-width:30em;padding:12px 16px;border-radius:16px;background:rgba(255,255,255,.6);color:#1C1C1E;border:.5px solid rgba(255,255,255,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:15px;line-height:1.4;text-decoration:none}
+.privat .i{width:22px;height:22px;flex-shrink:0;color:#248A3D;margin-top:1px}
+.privat u{text-decoration:none;color:#248A3D;font-weight:600;white-space:nowrap}
+@media (prefers-color-scheme:dark){.privat{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}.privat .i,.privat u{color:#7CE38B}}
 @media (prefers-color-scheme:dark){.pills span{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}}
 .devices{position:relative;justify-self:center;align-self:end;width:min(600px,100%);height:520px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 66%,transparent 100%);mask-image:linear-gradient(180deg,#000 66%,transparent 100%)}
 .bezel{background:linear-gradient(145deg,#3a3a3f,#111);position:absolute}
@@ -162,6 +166,7 @@ footer a:hover{color:var(--text)}
     <ul>
       <li><a href="#funktionen">Funktionen</a></li>
       <li><a href="#bilder">Bilder</a></li>
+      <li><a href="#daten">Deine Daten</a></li>
       <li><a href="#fragen">Fragen</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
@@ -177,7 +182,8 @@ footer a:hover{color:var(--text)}
       </div>
       <h1>Guten Morgen,<br>der Tag kann kommen.</h1>
       <p class="lead">Starte jeden Tag mit einem Lächeln: dein persönliches Morgen-Briefing – was heute zählt, dazu etwas zum Staunen, Schmunzeln und Mitraten. Positiv und jeden Morgen anders.</p>
-      <div class="pills"><span>Kostenlos</span><span>Ohne Werbung</span><span>Ohne Konto</span><span>Daten bleiben auf dem iPhone</span></div>
+      <div class="pills"><span>Kostenlos</span><span>Ohne Werbung</span><span>Ohne Konto</span></div>
+      <a class="privat" href="#daten"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg><span><b>Alles bleibt auf deinem iPhone.</b> Kein Server, kein Tracking – was du machst, weiß nur dein iPhone. <u>Mehr dazu</u></span></a>
     </div>
     <div class="devices">
       <div class="bezel duo"><img src="bilder/duo-morgen.jpg" width="1040" height="803" alt="Die App auf dem aufgeklappten iPhone Duo: zwei Spalten mit Wetter, Fokus und Tipps" draggable="false"></div>
@@ -207,7 +213,7 @@ footer a:hover{color:var(--text)}
     <p class="intro">Alles ist von Anfang an da – du entscheidest, was du siehst. Lange auf eine Kachel drücken, um sie auszublenden oder zu verschieben.</p>
     <div class="grid">
       <div class="tile"><div class="lbl c-blue"><svg class="i"><use href="#i-cloudsun"/></svg>Wetter, das mitdenkt</div><p>Wetter für deinen Ort, ein freundlicher Wettertipp und ein Kleidungstipp, der zum Tag passt – vor dem Wochenende auch, welcher Tag der schönere wird.</p></div>
-      <div class="tile"><div class="lbl c-rose"><svg class="i"><use href="#i-cal"/></svg>Dein Tag und deine Woche</div><p>Termine aus dem iPhone-Kalender, „Gleich geht’s los“ kurz vor dem nächsten Termin und Geburtstage aus den Kontakten.</p></div>
+      <div class="tile"><div class="lbl c-rose"><svg class="i"><use href="#i-cal"/></svg>Dein Tag und deine Woche</div><p>Termine aus dem iPhone-Kalender, die mitdenken: Regen zur Terminzeit, wann du losfahren musst und wo du Luft hast. „Gleich geht’s los“ meldet sich rechtzeitig vor der Abfahrt – dazu Geburtstage aus den Kontakten.</p></div>
       <div class="tile"><div class="lbl c-purple"><svg class="i"><use href="#i-text"/></svg>Heute auf einen Blick</div><p>Ein Satz, der Wetter und Termine zusammenbringt. Ab 19 Uhr schaut „Dein Abend“ schon auf morgen.</p></div>
       <div class="tile"><div class="lbl c-steel"><svg class="i"><use href="#i-hourglass"/></svg>Countdowns und Tageslicht</div><p>Wie weit es bis zum Wochenende ist, Feiertage und Ferien für dein Bundesland – und rund ums Jahr ein Satz zum Tageslicht.</p></div>
       <div class="tile"><div class="lbl c-gold"><svg class="i"><use href="#i-sprout"/></svg>Saison und Natur</div><p>Was gerade reif ist, mit eigenem Symbol für jede Sorte, dazu Natur, Garten und Kochideen.</p></div>
@@ -238,6 +244,19 @@ footer a:hover{color:var(--text)}
       <figure class="wide"><div class="shot"><img src="bilder/duo-abend.jpg" width="1040" height="803" draggable="false" alt="Abendansicht auf dem aufgeklappten iPhone Duo in zwei Spalten" style="aspect-ratio:1040/803"></div><figcaption><b>iPhone Duo</b>Aufgeklappt in zwei Spalten</figcaption></figure>
     </div>
     <p class="hint"><svg class="i"><use href="#i-swipe"/></svg>Zum Weiterblättern wischen. Echte Bildschirmfotos mit Beispieldaten – die Inhalte wechseln jeden Tag.</p>
+  </div>
+</section>
+
+<section id="daten" style="padding-top:20px">
+  <div class="wrap">
+    <p class="eyebrow">Deine Daten</p>
+    <h2>Alles bleibt auf deinem iPhone.</h2>
+    <p class="intro">Kein Konto, keine Anmeldung, keine Werbung, kein Tracking – und kein eigener Server. Was du in Guten Morgen machst, weiß nur dein iPhone.</p>
+    <div class="grid">
+      <div class="tile"><div class="lbl c-green"><svg class="i"><use href="#i-lock"/></svg>Bleibt bei dir</div><h3>Nur auf deinem iPhone</h3><p>Termine, Kontakte und Geburtstage, deine Lieblinge und Reaktionen, deine Einstellungen – und sogar dein Jahresrückblick. Er wird auf dem iPhone berechnet und geht nirgendwohin.</p></div>
+      <div class="tile"><div class="lbl c-blue"><svg class="i"><use href="#i-cloudsun"/></svg>Nur das Nötigste</div><h3>Nur grob, nur wenn nötig</h3><p>Fürs Wetter und für Ausflugsideen geht nur dein ungefährer Ort hinaus, auf etwa einen Kilometer gerundet. Für die Fahrzeit zu einem Termin dazu nur der Zielpunkt – nie Titel oder Teilnehmer.</p></div>
+      <div class="tile"><div class="lbl c-gold"><svg class="i"><use href="#i-user"/></svg>Du entscheidest</div><h3>Freigaben nach deinem Willen</h3><p>Kalender, Kontakte und Standort nur mit deiner Erlaubnis. Was du nicht freigibst, bleibt zu – die App läuft trotzdem.</p></div>
+    </div>
   </div>
 </section>
 
